@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `삽질.log`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Yisu Kim`,
+      summary: ``,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    description: `삽질 기록을 위한 개발 블로그`,
+    siteUrl: `https://yisu-kim-blog.netlify.app/`,
     social: {
-      twitter: `kylemathews`,
+      github: `yisu-kim`,
     },
   },
   plugins: [
@@ -66,7 +66,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/favicon.svg`,
       },
     },
     `gatsby-plugin-react-helmet`,

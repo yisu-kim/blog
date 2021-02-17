@@ -295,11 +295,8 @@ a:focus {
   margin-bottom: var(--spacing-0);
 }
 
-.bio-avatar {
-  margin-right: var(--spacing-4);
-  margin-bottom: var(--spacing-0);
-  min-width: 50px;
-  border-radius: 100%;
+.bio a {
+  font-size: 20px;
 }
 
 .blog-post header h1 {
