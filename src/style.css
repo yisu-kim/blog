@@ -29,8 +29,10 @@
   --spacing-32: 8rem;
   --fontFamily-sans: "Noto Sans KR";
   --fontFamily-serif: "Noto Serif KR";
+  --fontFamily-code: "Fira Code", "Noto Sans KR";
   --font-body: var(--fontFamily-serif);
   --font-heading: var(--fontFamily-sans);
+  --font-code: var(--fontFamily-code);
   --fontWeight-normal: 400;
   --fontWeight-medium: 500;
   --fontWeight-semibold: 600;
@@ -311,6 +313,14 @@ a:focus {
 
 .gatsby-highlight {
   margin-bottom: var(--spacing-8);
+}
+
+.gatsby-highlight pre[class*="language-"] {
+  border-radius: var(--spacing-2);
+}
+
+.gatsby-highlight code[class*="language-"] {
+  font-family: var(--font-code);
 }
 
 /* Media queries */
