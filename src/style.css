@@ -33,6 +33,7 @@
   --font-body: var(--fontFamily-serif);
   --font-heading: var(--fontFamily-sans);
   --font-code: var(--fontFamily-code);
+  --font-tag: var(--fontFamily-sans);
   --fontWeight-normal: 400;
   --fontWeight-medium: 500;
   --fontWeight-semibold: 600;
@@ -59,6 +60,7 @@
   --color-heading: #1a202c;
   --color-heading-black: black;
   --color-accent: #d1dce5;
+  --color-tag: #d2dae2;
 }
 
 /* HTML elements */
@@ -276,6 +278,19 @@ a:focus {
 
 .post-list-item header {
   margin-bottom: var(--spacing-4);
+}
+
+.post-list-item small {
+  margin-right: var(--spacing-1);
+}
+
+.post-list-item-tag {
+  font-family: var(--font-tag);
+  font-size: var(--fontSize-0);
+  background-color: var(--color-tag);
+  margin: var(--spacing-1);
+  padding: var(--spacing-0) var(--spacing-2);
+  border-radius: var(--spacing-1);
 }
 
 .header-link-home {
