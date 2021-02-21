@@ -326,6 +326,15 @@ a:focus {
   margin: var(--spacing-0);
 }
 
+code[class*="language-"]:not(.gatsby-highlight code) {
+  font-family: var(--fontFamily-serif);
+  font-size: var(--fontSize-0);
+  font-weight: var(--fontWeight-semibold);
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  padding: var(--spacing-0) var(--spacing-2);
+}
+
 .gatsby-highlight {
   margin-bottom: var(--spacing-8);
 }
