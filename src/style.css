@@ -376,6 +376,19 @@ code[class*="language-"]:not(.gatsby-highlight code) {
   outline: none;
 }
 
+/* visuallyhidden code snippet from w3.org */
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 /* Media queries */
 
 @media (max-width: 42rem) {

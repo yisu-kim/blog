@@ -38,7 +38,12 @@ const Bio = () => {
         <p>
           Written by <strong>{author.name}</strong> {author?.summary || null}
           {` `}
-          <a href={`https://github.com/${social?.github || ``}`}>
+          <a
+            href={`https://github.com/${social?.github || ``}`}
+            aria-label="Github"
+            target="_blank"
+            rel="noopener"
+          >
             <FontAwesomeIcon icon={faGithub} />
           </a>
         </p>

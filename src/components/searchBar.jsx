@@ -16,13 +16,16 @@ const SearchBar = ({ setSearchQuery }) => {
 
   return (
     <form ref={formRef} className="search-bar" onSubmit={handleSubmit}>
-      <input
-        ref={inputRef}
-        type="text"
-        placeholder="제목, 태그, 본문 검색 :)"
-        onChange={handleChange}
-      />
-      <button type="submit">
+      <label>
+        <span className="visually-hidden">Search something :)</span>
+        <input
+          ref={inputRef}
+          type="text"
+          placeholder="제목, 태그, 본문 검색 :)"
+          onChange={handleChange}
+        />
+      </label>
+      <button type="submit" aria-label="search button">
         <FontAwesomeIcon icon={faSearch} />
       </button>
     </form>
