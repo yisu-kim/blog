@@ -56,12 +56,6 @@ module.exports = {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
       },
     },
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
     `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -126,6 +120,27 @@ module.exports = {
             tags: node.frontmatter.tags,
             body: node.rawMarkdownBody,
           })),
+      },
+    },
+    {
+      resolve: `gatsby-plugin-webfonts`,
+      options: {
+        fonts: {
+          google: [
+            {
+              family: "Noto Serif KR",
+              variants: ["400", "700"],
+            },
+            {
+              family: "Noto Sans KR",
+              variants: ["400", "700"],
+            },
+            {
+              family: "Fira Code",
+              variants: ["400"],
+            },
+          ],
+        },
       },
     },
   ],
