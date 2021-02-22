@@ -61,6 +61,7 @@
   --color-heading-black: black;
   --color-accent: #d1dce5;
   --color-tag: #d2dae2;
+  --color-search-bar: #cee3f8;
 }
 
 /* HTML elements */
@@ -345,6 +346,32 @@ code[class*="language-"]:not(.gatsby-highlight code) {
 
 .gatsby-highlight code[class*="language-"] {
   font-family: var(--font-code);
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar input,
+.search-bar button {
+  font-family: var(--fontFamily-sans);
+  padding: var(--spacing-2) var(--spacing-3);
+  background-color: var(--color-search-bar);
+  border: none;
+  color: var(--color-text-light);
+}
+
+.search-bar input {
+  border-radius: var(--spacing-2) 0 0 var(--spacing-2);
+}
+
+.search-bar button {
+  border-radius: 0 var(--spacing-2) var(--spacing-2) 0;
+}
+
+.search-bar input:focus {
+  outline: none;
 }
 
 /* Media queries */
