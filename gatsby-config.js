@@ -79,5 +79,54 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    {
+      resolve: "gatsby-plugin-local-search",
+      options: {
+        name: "pages",
+        engine: "flexsearch",
+        engineOptions: {
+          encode: "icase",
+          tokenize: function (str) {
+            const cjkItems = str.replace(/[\x00-\x7F]/g, "").split("")
+            const asciiItems = str.replace(/[^\x00-\x7F]/g, "").split(/\W+/)
+            return cjkItems.concat(asciiItems)
+          },
+          threshold: 1,
+          resolution: 3,
+          depth: 2,
+        },
+        query: `
+          {
+            allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+              nodes {
+                excerpt
+                fields {
+                  slug
+                }
+                frontmatter {
+                  date(formatString: "MMMM DD, YYYY")
+                  title
+                  description
+                  tags
+                }
+                rawMarkdownBody
+              }
+            }
+          }
+        `,
+        ref: "slug",
+        index: ["title", "tags", "description", "body"],
+        normalizer: ({ data }) =>
+          data.allMarkdownRemark.nodes.map(node => ({
+            title: node.frontmatter.title,
+            excerpt: node.excerpt,
+            date: node.frontmatter.date,
+            slug: node.fields.slug,
+            description: node.frontmatter.description,
+            tags: node.frontmatter.tags,
+            body: node.rawMarkdownBody,
+          })),
+      },
+    },
   ],
 }

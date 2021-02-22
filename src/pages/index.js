@@ -5,12 +5,31 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import SearchBar from "../components/searchBar"
+import flexSearch from "../utils/flexSearch"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
+  const {
+    localSearchPages: { index, store },
+  } = data
 
   const [searchQuery, setSearchQuery] = useState(``)
+
+  const results = flexSearch(searchQuery, index, store)
+
+  const unflattenResults = results =>
+    results.map(post => {
+      const { excerpt, slug, title, date, description, tags } = post
+      return {
+        excerpt,
+        fields: { slug },
+        frontmatter: { title, date, description, tags },
+      }
+    })
+
+  const posts = searchQuery
+    ? unflattenResults(results)
+    : data.allMarkdownRemark.nodes
 
   if (posts.length === 0) {
     return (
@@ -83,6 +102,10 @@ export const pageQuery = graphql`
       siteMetadata {
         title
       }
+    }
+    localSearchPages {
+      index
+      store
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       nodes {
