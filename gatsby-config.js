@@ -81,8 +81,8 @@ module.exports = {
         engineOptions: {
           encode: "icase",
           tokenize: function (str) {
-            const cjkItems = str.replace(/[\x00-\x7F]/g, "").split("")
-            const asciiItems = str.replace(/[^\x00-\x7F]/g, "").split(/\W+/)
+            const cjkItems = str.replace(/[\0-\x7F]/g, "").split("")
+            const asciiItems = str.replace(/[^\0-\x7F]/g, "").split(/\W+/)
             return cjkItems.concat(asciiItems)
           },
           threshold: 1,
