@@ -80,6 +80,12 @@ module.exports = {
             type: `image/png`,
             purpose: `any maskable`,
           },
+          {
+            src: `/static/favicon-512x512.png`,
+            sizes: `512x512`,
+            type: `image/png`,
+            purpose: `any maskable`,
+          },
         ],
       },
     },
