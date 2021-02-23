@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `삽질.log`,
+    title: `Digging.log`,
     author: {
       name: `Yisu Kim`,
       summary: ``,
@@ -60,19 +60,17 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Digging.Log`,
+        short_name: `Digging`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `content/assets/favicon.svg`,
+        theme_color: `#ffffff`,
+        display: `standalone`,
+        icon: "static/favicon-32x32.png",
       },
     },
     `gatsby-plugin-react-helmet`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
     {
       resolve: "gatsby-plugin-local-search",
       options: {
