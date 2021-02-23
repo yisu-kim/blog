@@ -73,7 +73,7 @@ const BlogIndex = ({ data, location }) => {
                   {tags &&
                     tags.map(tag => (
                       <span key={tag} className="post-list-item-tag">
-                        {tag}
+                        #{tag}
                       </span>
                     ))}
                 </header>
