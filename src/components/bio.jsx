@@ -42,7 +42,7 @@ const Bio = () => {
             href={`https://github.com/${social?.github || ``}`}
             aria-label="Github"
             target="_blank"
-            rel="noopener"
+            rel="noreferrer"
           >
             <FontAwesomeIcon icon={faGithub} />
           </a>
