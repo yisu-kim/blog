@@ -20,27 +20,48 @@ const Tag = ({ pageContext, data, location }) => {
       <article itemScope itemType="http://schema.org/Article">
         <header>
           <h1 itemProp="headline">{tagHeader}</h1>
+          <Link to="/tags" className="post-list-item-tag">
+            All tags
+          </Link>
         </header>
         <hr />
-        <section itemProp="articleBody">
-          <ul>
+        <section>
+          <ol className="post-list">
             {edges.map(({ node }) => {
               const {
+                excerpt,
                 fields: { slug },
-                frontmatter: { title },
+                frontmatter: { date, title, description },
               } = node
               return (
                 <li key={slug}>
-                  <Link to={slug}>{title}</Link>
+                  <article
+                    className="post-list-item"
+                    itemScope
+                    itemType="http://schema.org/Article"
+                  >
+                    <header>
+                      <h2>
+                        <Link to={slug} itemProp="url">
+                          <span itemProp="headline">{title}</span>
+                        </Link>
+                      </h2>
+                      <small>{date}</small>
+                    </header>
+                    <section>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: description || excerpt,
+                        }}
+                        itemProp="description"
+                      />
+                    </section>
+                  </article>
                 </li>
               )
             })}
-          </ul>
+          </ol>
         </section>
-        <hr />
-        <footer>
-          <Link to="/tags">All tags</Link>
-        </footer>
       </article>
     </Layout>
   )
@@ -86,11 +107,14 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
+          excerpt
           fields {
             slug
           }
           frontmatter {
+            date(formatString: "MMMM DD, YYYY")
             title
+            description
           }
         }
       }
