@@ -19,15 +19,16 @@ const Tags = ({ data, location }) => {
           <h1 itemProp="headline">Tags</h1>
         </header>
         <hr />
-        <section itemProp="articleBody">
+        <section className="tag-list" itemProp="articleBody">
           <ul>
             {tags.map(tag => {
               const { fieldValue, totalCount } = tag
               return (
-                <li key={fieldValue}>
+                <li key={fieldValue} className="tag">
                   <Link to={`/tags/${kebabCase(fieldValue)}/`}>
-                    {fieldValue} ({totalCount})
+                    #{fieldValue}
                   </Link>
+                  <p>총 {totalCount}개의 포스트</p>
                 </li>
               )
             })}

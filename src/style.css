@@ -58,6 +58,7 @@
   --color-primary: #005b99;
   --color-text: #2e353f;
   --color-text-light: #4f5969;
+  --color-text-gray: #9fa7b5;
   --color-text-white: #ffffff;
   --color-heading: #1a202c;
   --color-heading-black: black;
@@ -400,6 +401,33 @@ code[class*="language-"]:not(.gatsby-highlight code) {
   outline: none;
 }
 
+.tag-list ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.tag-list li {
+  flex-basis: 25%;
+  text-align: center;
+  margin-top: var(--spacing-6);
+}
+
+.tag {
+  font-family: var(--font-tag);
+}
+
+.tag a {
+  color: var(--color-complementary);
+}
+
+.tag p {
+  font-size: var(--fontSize-0);
+  margin-top: var(--spacing-3);
+  color: var(--color-text-gray);
+}
+
 /* visuallyhidden code snippet from w3.org */
 
 .visually-hidden {
@@ -423,5 +451,8 @@ code[class*="language-"]:not(.gatsby-highlight code) {
   ul,
   ol {
     list-style-position: inside;
+  }
+  .tag-list li {
+    flex-basis: 100%;
   }
 }
