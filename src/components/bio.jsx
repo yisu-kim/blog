@@ -9,7 +9,6 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
-import "@fortawesome/fontawesome-svg-core/styles.css"
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
