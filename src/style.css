@@ -296,6 +296,7 @@ a:focus {
 }
 
 .post-list-item-tag {
+  display: inline-block;
   font-family: var(--font-tag);
   font-size: var(--fontSize-0);
   margin: var(--spacing-0) var(--spacing-1);
@@ -338,6 +339,7 @@ a:focus {
 }
 
 .blog-post-tag {
+  display: inline-block;
   font-family: var(--font-tag);
   margin: var(--spacing-0) var(--spacing-1);
   color: var(--color-complementary);
