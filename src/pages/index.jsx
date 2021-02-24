@@ -70,6 +70,7 @@ const BlogIndex = ({ data, location }) => {
                   {tags &&
                     tags.map(tag => (
                       <a
+                        key={kebabCase(tag)}
                         href={`/tags/${kebabCase(tag)}/`}
                         className="post-list-item-tag"
                       >
