@@ -8,13 +8,15 @@ import SearchBar from "../components/searchBar"
 import flexSearch from "../utils/flexSearch"
 
 const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
+  console.log(data)
+
   const {
+    site: { siteMetadata: { title: siteTitle } = `Title` },
     localSearchPages: { index, store },
+    allMarkdownRemark: { nodes },
   } = data
 
   const [searchQuery, setSearchQuery] = useState(``)
-
   const results = flexSearch(searchQuery, index, store)
 
   const unflattenResults = results =>
@@ -26,10 +28,7 @@ const BlogIndex = ({ data, location }) => {
         frontmatter: { title, date, description, tags },
       }
     })
-
-  const posts = searchQuery
-    ? unflattenResults(results)
-    : data.allMarkdownRemark.nodes
+  const posts = searchQuery ? unflattenResults(results) : nodes
 
   if (posts.length === 0) {
     return (
@@ -51,13 +50,16 @@ const BlogIndex = ({ data, location }) => {
       <SEO title="All posts" />
       <Bio />
       <SearchBar setSearchQuery={setSearchQuery} />
-      <ol style={{ listStyle: `none` }}>
+      <ol className="post-list">
         {posts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
-          const tags = post.frontmatter.tags
+          const {
+            excerpt,
+            fields: { slug },
+            frontmatter: { date, title, description, tags },
+          } = post
 
           return (
-            <li key={post.fields.slug}>
+            <li key={slug}>
               <article
                 className="post-list-item"
                 itemScope
@@ -65,11 +67,11 @@ const BlogIndex = ({ data, location }) => {
               >
                 <header>
                   <h2>
-                    <Link to={post.fields.slug} itemProp="url">
+                    <Link to={slug} itemProp="url">
                       <span itemProp="headline">{title}</span>
                     </Link>
                   </h2>
-                  <small>{post.frontmatter.date}</small>
+                  <small>{date}</small>
                   {tags &&
                     tags.map(tag => (
                       <span key={tag} className="post-list-item-tag">
@@ -80,7 +82,7 @@ const BlogIndex = ({ data, location }) => {
                 <section>
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
+                      __html: description || excerpt,
                     }}
                     itemProp="description"
                   />

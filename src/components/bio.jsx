@@ -28,26 +28,31 @@ const Bio = () => {
     }
   `)
 
-  // Set these values by editing "siteMetadata" in gatsby-config.js
-  const author = data.site.siteMetadata?.author
-  const social = data.site.siteMetadata?.social
+  const {
+    site: {
+      siteMetadata: { author: { name, summary } = {}, social: { github } = {} },
+    },
+  } = data
 
   return (
     <div className="bio">
-      {author?.name && (
-        <p>
-          Written by <strong>{author.name}</strong> {author?.summary || null}
-          {` `}
+      <p>
+        {name && (
+          <span>
+            Written by <strong>{name}</strong> {summary || null}
+          </span>
+        )}
+        {github && (
           <a
-            href={`https://github.com/${social?.github || ``}`}
+            href={`https://github.com/${github}`}
             aria-label="Github"
             target="_blank"
             rel="noreferrer"
           >
             <FontAwesomeIcon icon={faGithub} />
           </a>
-        </p>
-      )}
+        )}
+      </p>
     </div>
   )
 }

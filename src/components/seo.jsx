@@ -27,8 +27,10 @@ const SEO = ({ description, lang, meta, title }) => {
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
+  const {
+    siteMetadata: { title: defaultTitle, description: siteDescription },
+  } = site
+  const metaDescription = description || siteDescription
 
   return (
     <Helmet

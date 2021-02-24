@@ -6,27 +6,31 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const BlogPostTemplate = ({ data, location }) => {
-  const post = data.markdownRemark
-  const siteTitle = data.site.siteMetadata?.title || `Title`
-  const { previous, next } = data
+  const {
+    site: { siteMetadata: { title: siteTitle } = `Title` },
+    markdownRemark: {
+      excerpt,
+      html,
+      frontmatter: { date, title, description, tags },
+    },
+    previous,
+    next,
+  } = data
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO
-        title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
-      />
+      <SEO title={title} description={description || excerpt} />
       <article
         className="blog-post"
         itemScope
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
+          <h1 itemProp="headline">{title}</h1>
           <p>
-            <span className="blog-post-date">{post.frontmatter.date}</span>
-            {post.frontmatter.tags &&
-              post.frontmatter.tags.map(tag => (
+            <span className="blog-post-date">{date}</span>
+            {tags &&
+              tags.map(tag => (
                 <span key={tag} className="blog-post-tag">
                   #{tag}
                 </span>
@@ -35,7 +39,7 @@ const BlogPostTemplate = ({ data, location }) => {
         </header>
         <hr />
         <section
-          dangerouslySetInnerHTML={{ __html: post.html }}
+          dangerouslySetInnerHTML={{ __html: html }}
           itemProp="articleBody"
         />
         <hr />
@@ -44,15 +48,7 @@ const BlogPostTemplate = ({ data, location }) => {
         </footer>
       </article>
       <nav className="blog-post-nav">
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
+        <ul>
           <li>
             {previous && (
               <Link to={previous.fields.slug} rel="prev">
