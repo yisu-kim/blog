@@ -295,8 +295,8 @@ a:focus {
 .post-list-item-tag {
   font-family: var(--font-tag);
   font-size: var(--fontSize-0);
-  text-decoration: underline;
   margin: var(--spacing-0) var(--spacing-1);
+  color: var(--color-text-light);
 }
 
 .header-link-home {
@@ -336,8 +336,8 @@ a:focus {
 
 .blog-post-tag {
   font-family: var(--font-tag);
-  text-decoration: underline;
   margin: var(--spacing-0) var(--spacing-1);
+  color: var(--color-text-light);
 }
 
 .blog-post section {
@@ -387,7 +387,6 @@ code[class*="language-"]:not(.gatsby-highlight code) {
   background-color: transparent;
   border: none;
   border-bottom: var(--spacing-1) solid var(--color-accent);
-
   color: var(--color-text-light);
 }
 
