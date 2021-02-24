@@ -35,6 +35,7 @@
   --font-heading: var(--fontFamily-sans);
   --font-code: var(--fontFamily-code);
   --font-tag: var(--fontFamily-sans);
+  --font-nav: var(--fontFamily-sans);
   --fontWeight-normal: 400;
   --fontWeight-medium: 500;
   --fontWeight-semibold: 600;
@@ -349,6 +350,10 @@ a:focus {
   margin-top: var(--spacing-10);
 }
 
+.blog-post-nav {
+  font-family: var(--font-nav);
+}
+
 .blog-post-nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -356,6 +361,30 @@ a:focus {
   list-style: none;
   padding: var(--spacing-0);
   margin: var(--spacing-0);
+}
+
+.blog-post-nav p {
+  font-size: var(--fontSize-0);
+  color: var(--color-text-gray);
+  margin: var(--spacing-2) var(--spacing-0);
+}
+
+.blog-post-nav a {
+  font-weight: var(--fontWeight-bold);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.blog-post-nav a:hover {
+  color: var(--color-primary);
+}
+
+.blog-post-next {
+  margin-left: auto;
+}
+
+.blog-post-next p {
+  text-align: right;
 }
 
 code[class*="language-"]:not(.gatsby-highlight code) {
