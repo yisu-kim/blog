@@ -1,4 +1,5 @@
 import React from "react"
+import kebabCase from "lodash/kebabCase"
 import { Link, graphql } from "gatsby"
 
 import Bio from "../components/bio"
@@ -31,9 +32,9 @@ const BlogPostTemplate = ({ data, location }) => {
             <span className="blog-post-date">{date}</span>
             {tags &&
               tags.map(tag => (
-                <span key={tag} className="blog-post-tag">
+                <a href={`/tags/${kebabCase(tag)}/`} className="blog-post-tag">
                   #{tag}
-                </span>
+                </a>
               ))}
           </p>
         </header>

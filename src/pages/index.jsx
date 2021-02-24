@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import kebabCase from "lodash/kebabCase"
 import { Link, graphql } from "gatsby"
 
 import Bio from "../components/bio"
@@ -8,8 +9,6 @@ import SearchBar from "../components/searchBar"
 import flexSearch from "../utils/flexSearch"
 
 const BlogIndex = ({ data, location }) => {
-  console.log(data)
-
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
     localSearchPages: { index, store },
@@ -36,11 +35,7 @@ const BlogIndex = ({ data, location }) => {
         <SEO title="All posts" />
         <Bio />
         <SearchBar setSearchQuery={setSearchQuery} />
-        <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
-        </p>
+        <p>Sorry, no blog posts found. :(</p>
       </Layout>
     )
   }
@@ -74,9 +69,12 @@ const BlogIndex = ({ data, location }) => {
                   <small>{date}</small>
                   {tags &&
                     tags.map(tag => (
-                      <span key={tag} className="post-list-item-tag">
+                      <a
+                        href={`/tags/${kebabCase(tag)}/`}
+                        className="post-list-item-tag"
+                      >
                         #{tag}
-                      </span>
+                      </a>
                     ))}
                 </header>
                 <section>
