@@ -58,9 +58,11 @@
   --color-primary: #005b99;
   --color-text: #2e353f;
   --color-text-light: #4f5969;
+  --color-text-white: #ffffff;
   --color-heading: #1a202c;
   --color-heading-black: black;
   --color-accent: #d1dce5;
+  --color-complementary: #993e00;
 }
 
 /* HTML elements */
@@ -296,7 +298,7 @@ a:focus {
   font-family: var(--font-tag);
   font-size: var(--fontSize-0);
   margin: var(--spacing-0) var(--spacing-1);
-  color: var(--color-text-light);
+  color: var(--color-complementary);
 }
 
 .header-link-home {
@@ -337,7 +339,7 @@ a:focus {
 .blog-post-tag {
   font-family: var(--font-tag);
   margin: var(--spacing-0) var(--spacing-1);
-  color: var(--color-text-light);
+  color: var(--color-complementary);
 }
 
 .blog-post section {
@@ -354,12 +356,11 @@ a:focus {
 }
 
 code[class*="language-"]:not(.gatsby-highlight code) {
-  font-family: var(--fontFamily-serif);
+  font-family: var(--fontFamily-code);
   font-size: var(--fontSize-0);
-  font-weight: var(--fontWeight-semibold);
-  background-color: var(--color-accent);
-  color: var(--color-text);
-  padding: var(--spacing-0) var(--spacing-2);
+  background-color: var(--color-complementary);
+  color: var(--color-text-white);
+  padding: var(--spacing-1) var(--spacing-2);
 }
 
 .gatsby-highlight {
