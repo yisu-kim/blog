@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: yisu-kim/blog
-  branch: master
+  branch: blog
   commit_messages:
     create: '[Post] {{collection}} "{{slug}}" 작성'
     update: '[Post] {{collection}} "{{slug}}" 수정'
