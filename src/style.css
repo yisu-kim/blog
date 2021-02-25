@@ -353,40 +353,40 @@ a:focus {
   margin-top: var(--spacing-10);
 }
 
-.blog-post-nav {
+.foot-nav {
   font-family: var(--font-nav);
 }
 
-.blog-post-nav ul {
+.foot-nav ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  list-style: none;
   padding: var(--spacing-0);
   margin: var(--spacing-0);
+  list-style: none;
 }
 
-.blog-post-nav p {
+.foot-nav p {
+  margin: var(--spacing-2) var(--spacing-0);
   font-size: var(--fontSize-0);
   color: var(--color-text-gray);
-  margin: var(--spacing-2) var(--spacing-0);
 }
 
-.blog-post-nav a {
+.foot-nav a {
   font-weight: var(--fontWeight-bold);
-  color: var(--color-text);
+  color: var(--color-text-gray);
   text-decoration: none;
 }
 
-.blog-post-nav a:hover {
+.foot-nav a:hover {
   color: var(--color-primary);
 }
 
-.blog-post-next {
+.foot-nav-next {
   margin-left: auto;
 }
 
-.blog-post-next p {
+.foot-nav-next p {
   text-align: right;
 }
 

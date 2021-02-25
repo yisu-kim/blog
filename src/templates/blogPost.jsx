@@ -48,28 +48,24 @@ const BlogPostTemplate = ({ data, location }) => {
           <Bio />
         </footer>
       </article>
-      <nav className="blog-post-nav">
+      <nav className="foot-nav">
         <ul>
-          <li className="blog-post-previous">
-            {previous && (
-              <>
-                <p>Previous</p>
-                <Link to={previous.fields.slug} rel="prev">
-                  ← {previous.frontmatter.title}
-                </Link>
-              </>
-            )}
-          </li>
-          <li className="blog-post-next">
-            {next && (
-              <>
-                <p>Next</p>
-                <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.title} →
-                </Link>
-              </>
-            )}
-          </li>
+          {previous && (
+            <li className="foot-nav-previous">
+              <p>Previous</p>
+              <Link to={previous.fields.slug} rel="prev">
+                ← {previous.frontmatter.title}
+              </Link>
+            </li>
+          )}
+          {next && (
+            <li className="foot-nav-next">
+              <p>Next</p>
+              <Link to={next.fields.slug} rel="next">
+                {next.frontmatter.title} →
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
     </Layout>

@@ -8,12 +8,18 @@ import SEO from "../components/seo"
 import SearchBar from "../components/searchBar"
 import flexSearch from "../utils/flexSearch"
 
-const BlogIndex = ({ data, location }) => {
+const BlogIndex = ({ data, location, pageContext }) => {
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
     localSearchPages: { index, store },
     allMarkdownRemark: { nodes },
   } = data
+
+  const { currentPage, numPages } = pageContext
+  const isFirst = currentPage === 1
+  const isLast = currentPage === numPages
+  const prevPage = currentPage - 1 === 1 ? "/" : `/page/${currentPage - 1}`
+  const nextPage = `/page/${currentPage + 1}`
 
   const [searchQuery, setSearchQuery] = useState(``)
   const results = flexSearch(searchQuery, index, store)
@@ -87,6 +93,24 @@ const BlogIndex = ({ data, location }) => {
           )
         })}
       </ol>
+      <nav className="foot-nav">
+        <ul>
+          {!isFirst && (
+            <li className="foot-nav-previous">
+              <Link to={prevPage} rel="prev">
+                ← Previous Page
+              </Link>
+            </li>
+          )}
+          {!isLast && (
+            <li className="foot-nav-next">
+              <Link to={nextPage} rel="next">
+                Next Page →
+              </Link>
+            </li>
+          )}
+        </ul>
+      </nav>
     </Layout>
   )
 }
@@ -94,7 +118,7 @@ const BlogIndex = ({ data, location }) => {
 export default BlogIndex
 
 export const pageQuery = graphql`
-  query {
+  query($skip: Int!, $limit: Int!) {
     site {
       siteMetadata {
         title
@@ -104,7 +128,11 @@ export const pageQuery = graphql`
       index
       store
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      limit: $limit
+      skip: $skip
+    ) {
       nodes {
         excerpt
         fields {
