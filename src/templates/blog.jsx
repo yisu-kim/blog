@@ -7,6 +7,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import SearchBar from "../components/searchBar"
 import flexSearch from "../utils/flexSearch"
+import Pagination from "../components/pagination"
 
 const BlogIndex = ({ data, location, pageContext }) => {
   const {
@@ -20,6 +21,22 @@ const BlogIndex = ({ data, location, pageContext }) => {
   const isLast = currentPage === numPages
   const prevPage = currentPage - 1 === 1 ? "/" : `/page/${currentPage - 1}`
   const nextPage = `/page/${currentPage + 1}`
+
+  let prev
+  if (!isFirst) {
+    prev = {
+      to: prevPage,
+      text: `Prev Page`,
+    }
+  }
+
+  let next
+  if (!isLast) {
+    next = {
+      to: nextPage,
+      text: `Next Page`,
+    }
+  }
 
   const [searchQuery, setSearchQuery] = useState(``)
   const results = flexSearch(searchQuery, index, store)
@@ -93,24 +110,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
           )
         })}
       </ol>
-      <nav className="foot-nav">
-        <ul>
-          {!isFirst && (
-            <li className="foot-nav-previous">
-              <Link to={prevPage} rel="prev">
-                ← Previous Page
-              </Link>
-            </li>
-          )}
-          {!isLast && (
-            <li className="foot-nav-next">
-              <Link to={nextPage} rel="next">
-                Next Page →
-              </Link>
-            </li>
-          )}
-        </ul>
-      </nav>
+      <Pagination prev={prev} next={next} />
     </Layout>
   )
 }

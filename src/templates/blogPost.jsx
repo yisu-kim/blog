@@ -1,10 +1,11 @@
 import React from "react"
 import kebabCase from "lodash/kebabCase"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Pagination from "../components/pagination"
 
 const BlogPostTemplate = ({ data, location }) => {
   const {
@@ -14,9 +15,27 @@ const BlogPostTemplate = ({ data, location }) => {
       html,
       frontmatter: { date, title, description, tags },
     },
-    previous,
-    next,
+    previous: prevPost,
+    next: nextPost,
   } = data
+
+  let prev
+  if (prevPost) {
+    prev = {
+      to: prevPost.fields.slug,
+      text: prevPost.frontmatter.title,
+      secondText: `Previous`,
+    }
+  }
+
+  let next
+  if (nextPost) {
+    next = {
+      to: nextPost.fields.slug,
+      text: nextPost.frontmatter.title,
+      secondText: `Next`,
+    }
+  }
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -48,26 +67,7 @@ const BlogPostTemplate = ({ data, location }) => {
           <Bio />
         </footer>
       </article>
-      <nav className="foot-nav">
-        <ul>
-          {previous && (
-            <li className="foot-nav-previous">
-              <p>Previous</p>
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            </li>
-          )}
-          {next && (
-            <li className="foot-nav-next">
-              <p>Next</p>
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            </li>
-          )}
-        </ul>
-      </nav>
+      <Pagination prev={prev} next={next} />
     </Layout>
   )
 }
