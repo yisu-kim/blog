@@ -3,9 +3,9 @@ backend:
   repo: yisu-kim/blog
   branch: master
   commit_messages:
-    create: '[Post] {{collection}} "{{title}}" 작성'
-    update: '[Post] {{collection}} "{{title}}" 수정'
-    delete: '[Post] {{collection}} "{{title}}" 삭제'
+    create: '[Post] {{collection}} "{{slug}}" 작성'
+    update: '[Post] {{collection}} "{{slug}}" 수정'
+    delete: '[Post] {{collection}} "{{slug}}" 삭제'
     uploadMedia: '[Media] "{{path}}" 업로드'
     deleteMedia: '[Media] "{{path}}" 삭제'
 
