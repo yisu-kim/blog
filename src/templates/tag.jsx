@@ -3,16 +3,43 @@ import PropTypes from "prop-types"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import kebabCase from "lodash/kebabCase"
+import Pagination from "../components/pagination"
 
 const Tag = ({ pageContext, data, location }) => {
-  const { tag } = pageContext
+  const { tag, currentPage, numPages } = pageContext
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
     allMarkdownRemark: { edges, totalCount },
   } = data
+
   const tagHeader = `${totalCount} post${
     totalCount === 1 ? "" : "s"
   } tagged with "${tag}"`
+
+  const isFirst = currentPage === 1
+  const isLast = currentPage === numPages
+  const prevPage =
+    currentPage - 1 === 1
+      ? `/tags/${kebabCase(tag)}/`
+      : `/tags/${kebabCase(tag)}/${currentPage - 1}`
+  const nextPage = `/tags/${kebabCase(tag)}/${currentPage + 1}`
+
+  let prev
+  if (!isFirst) {
+    prev = {
+      to: prevPage,
+      text: `Prev Page`,
+    }
+  }
+
+  let next
+  if (!isLast) {
+    next = {
+      to: nextPage,
+      text: `Next Page`,
+    }
+  }
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -62,6 +89,7 @@ const Tag = ({ pageContext, data, location }) => {
             })}
           </ol>
         </section>
+        <Pagination prev={prev} next={next} />
       </article>
     </Layout>
   )
@@ -93,16 +121,17 @@ Tag.propTypes = {
 export default Tag
 
 export const pageQuery = graphql`
-  query($tag: String) {
+  query($tag: String, $skip: Int!, $limit: Int!) {
     site {
       siteMetadata {
         title
       }
     }
     allMarkdownRemark(
-      limit: 2000
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { tags: { in: [$tag] } } }
+      limit: $limit
+      skip: $skip
     ) {
       totalCount
       edges {

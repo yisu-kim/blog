@@ -28,6 +28,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         tagsGroup: allMarkdownRemark(limit: 2000) {
           group(field: frontmatter___tags) {
             fieldValue
+            pageInfo {
+              totalCount
+            }
           }
         }
       }
@@ -45,6 +48,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const posts = result.data.allMarkdownRemark.nodes
 
   // Create blog pages
+
   const postsPerPage = 6
   const numPages = Math.ceil(posts.length / postsPerPage)
   Array.from({ length: numPages }).forEach((_, i) => {
@@ -83,14 +87,28 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const tags = result.data.tagsGroup.group
 
+  // Create tag pages
+
+  const taggedPostsPerPage = 6
+
   if (tags.length > 0) {
     tags.forEach(tag => {
-      createPage({
-        path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
-        component: tagTemplate,
-        context: {
-          tag: tag.fieldValue,
-        },
+      const numPages = Math.ceil(tag.pageInfo.totalCount / taggedPostsPerPage)
+      Array.from({ length: numPages }).forEach((v, i) => {
+        createPage({
+          path:
+            i === 0
+              ? `/tags/${_.kebabCase(tag.fieldValue)}/`
+              : `/tags/${_.kebabCase(tag.fieldValue)}/${i + 1}`,
+          component: tagTemplate,
+          context: {
+            tag: tag.fieldValue,
+            limit: taggedPostsPerPage,
+            skip: i * taggedPostsPerPage,
+            numPages,
+            currentPage: i + 1,
+          },
+        })
       })
     })
   }
