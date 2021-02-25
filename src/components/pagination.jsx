@@ -3,10 +3,10 @@ import { Link } from "gatsby"
 
 function Pagination({ prev, next }) {
   return (
-    <nav className="foot-nav">
+    <nav className="pagination">
       <ul>
         {prev && (
-          <li className="foot-nav-previous">
+          <li className="pagination-previous">
             {prev.secondText && <p>{prev.secondText}</p>}
             <Link to={prev.to} rel="prev">
               ← {prev.text}
@@ -14,7 +14,7 @@ function Pagination({ prev, next }) {
           </li>
         )}
         {next && (
-          <li className="foot-nav-next">
+          <li className="pagination-next">
             {next.secondText && <p>{next.secondText}</p>}
             <Link to={next.to} rel="next">
               {next.text} →

@@ -353,11 +353,11 @@ a:focus {
   margin-top: var(--spacing-10);
 }
 
-.foot-nav {
+.pagination {
   font-family: var(--font-nav);
 }
 
-.foot-nav ul {
+.pagination ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -366,27 +366,27 @@ a:focus {
   list-style: none;
 }
 
-.foot-nav p {
+.pagination p {
   margin: var(--spacing-2) var(--spacing-0);
   font-size: var(--fontSize-0);
   color: var(--color-text-gray);
 }
 
-.foot-nav a {
+.pagination a {
   font-weight: var(--fontWeight-bold);
   color: var(--color-text-gray);
   text-decoration: none;
 }
 
-.foot-nav a:hover {
+.pagination a:hover {
   color: var(--color-primary);
 }
 
-.foot-nav-next {
+.pagination-next {
   margin-left: auto;
 }
 
-.foot-nav-next p {
+.pagination-next p {
   text-align: right;
 }
 
