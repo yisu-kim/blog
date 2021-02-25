@@ -1,0 +1,28 @@
+backend:
+  name: github
+  repo: yisu-kim/blog
+  branch: master
+  commit_messages:
+    create: '[Post] {{collection}} "{{title}}" 작성'
+    update: '[Post] {{collection}} "{{title}}" 수정'
+    delete: '[Post] {{collection}} "{{title}}" 삭제'
+    uploadMedia: '[Media] "{{path}}" 업로드'
+    deleteMedia: '[Media] "{{path}}" 삭제'
+
+media_folder: content/assets
+public_folder: /assets
+
+collections:
+  - name: blog
+    label: Blog
+    folder: "content/blog"
+    create: true
+    slug: "{{fields.slug}}"
+    path: "{{slug}}/index"
+    fields:
+      - { name: slug, label: Slug }
+      - { name: date, label: Publish Date, widget: datetime }
+      - { name: title, label: Title }
+      - { name: description, label: Description, widget: text }
+      - { name: body, label: Body, widget: markdown }
+      - { name: tags, label: Tags, widget: list }
