@@ -22,7 +22,7 @@ Gatsby에서는 다양한 스타터를 제공하는데 최대한 가볍게 시�
 
 ## Customizing
 
-커스터마이징은 최소화하고 우선 글 쓰는 데 집중하고자 했다. 블로그에 글이 좀 쌓이면 차차 다른 기능을 추가해보려 한다.
+커스터마이징은 최소화하고 글 쓰는 데 집중하고 싶다. 블로그에 글이 좀 쌓이면 차차 다른 기능을 추가해보려 한다.
 
 ### 한글 폰트
 
@@ -67,7 +67,36 @@ import "prism-themes/themes/prism-material-dark.css"
 
 ### 태그
 
+Gatsby는 문서화가 정말 잘 되어 있는데, [이 글](https://www.gatsbyjs.com/docs/adding-tags-and-categories-to-blog-posts/)을 참고해서 전체 태그를 볼 수 있는 page와 각 태그별 포스트 목록을 보여주는 template을 만들었다.
+
 ### 검색: Flex Search
+
+[검색 기능을 추가하는 방법](https://www.gatsbyjs.com/docs/how-to/adding-common-features/adding-search/)도 마찬가지로 잘 문서화되어 있다.
+API based 보다는 Client-side 검색 기능을 추가하고 싶어 [gatsby-plugin-local-search](https://www.gatsbyjs.com/plugins/gatsby-plugin-local-search) 플러그인의 Flex Search를 선택했다. 분명 README에는 한글도 지원된다고 나와 있으나 막상 따라해보면 한글, 영어 모두 검색되지 않았고 반쯤 포기할 뻔 했다.
+
+하지만 오랜 구글링 끝에 [해결방법](https://github.com/nextapps-de/flexsearch/issues/202#issue-752860900)을 찾을 수 있었다. 이후에 더 좋은 토크나이저로 바꾸거나 다른 search 라이브러리로 변경할지도 모르겠지만 우선은 만족.
+
+```js
+{
+  resolve: "gatsby-plugin-local-search",
+  options: {
+    name: "pages",
+    engine: "flexsearch",
+    engineOptions: {
+      encode: "icase",
+      tokenize: function (str) {
+        const cjkItems = str.replace(/[\0-\x7F]/g, "").split("");
+        const asciiItems = str.replace(/[^\0-\x7F]/g, "").split(/\W+/);
+        return cjkItems.concat(asciiItems);
+      },
+      threshold: 1,
+      resolution: 3,
+      depth: 2,
+    },
+    // 이하 생략
+  },
+}
+```
 
 ## Lighthouse
 
