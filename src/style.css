@@ -66,6 +66,7 @@
   --color-heading-black: black;
   --color-accent: #d1dce5;
   --color-complementary: #993e00;
+  --color-code-comment: #ffcccc;
 }
 
 /* HTML elements */
@@ -429,6 +430,10 @@ code[class*="language-"]:not(.gatsby-highlight code) {
 
 .gatsby-highlight code[class*="language-"] {
   font-family: var(--font-code);
+}
+
+.gatsby-highlight .token.comment {
+  color: var(--color-code-comment);
 }
 
 .search-bar {
