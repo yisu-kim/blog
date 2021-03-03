@@ -66,7 +66,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#ffffff`,
         display: `standalone`,
-        icon: "static/favicon-512x512.png",
+        icon: `static/favicon-512x512.png`,
         icons: [
           {
             src: `static/favicon-512x512.png`,
@@ -80,15 +80,15 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-offline`,
     {
-      resolve: "gatsby-plugin-local-search",
+      resolve: `gatsby-plugin-local-search`,
       options: {
-        name: "pages",
-        engine: "flexsearch",
+        name: `pages`,
+        engine: `flexsearch`,
         engineOptions: {
-          encode: "icase",
+          encode: `icase`,
           tokenize: function (str) {
-            const cjkItems = str.replace(/[\0-\x7F]/g, "").split("")
-            const asciiItems = str.replace(/[^\0-\x7F]/g, "").split(/\W+/)
+            const cjkItems = str.replace(/[\0-\x7F]/g, ``).split(``)
+            const asciiItems = str.replace(/[^\0-\x7F]/g, ``).split(/\W+/)
             return cjkItems.concat(asciiItems)
           },
           threshold: 1,
@@ -114,8 +114,8 @@ module.exports = {
             }
           }
         `,
-        ref: "slug",
-        index: ["title", "tags", "description", "body"],
+        ref: `slug`,
+        index: [`title`, `tags`, `description`, `body`],
         normalizer: ({ data }) =>
           data.allMarkdownRemark.nodes.map(node => ({
             title: node.frontmatter.title,
@@ -134,21 +134,20 @@ module.exports = {
         fonts: {
           google: [
             {
-              family: "Noto Serif KR",
-              variants: ["400", "700"],
+              family: `Noto Serif KR`,
+              variants: [`400`, `700`],
             },
             {
-              family: "Noto Sans KR",
-              variants: ["400", "700"],
+              family: `Noto Sans KR`,
+              variants: [`400`, `700`],
             },
             {
-              family: "Fira Code",
-              variants: ["400"],
+              family: `Fira Code`,
+              variants: [`400`],
             },
           ],
         },
       },
     },
-    `gatsby-plugin-netlify-cms`,
   ],
 }
