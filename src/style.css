@@ -12,7 +12,7 @@
   --maxWidth-4xl: 56rem;
   --maxWidth-full: "100%";
   --maxWidth-wrapper: var(--maxWidth-2xl);
-  --spacing-px: "1px";
+  --spacing-px: 1px;
   --spacing-0: 0;
   --spacing-0-5: 0.125rem;
   --spacing-1: 0.25rem;
@@ -61,7 +61,6 @@
   --color-text: #2e353f;
   --color-text-light: #4f5969;
   --color-text-gray: #9fa7b5;
-  --color-text-white: #ffffff;
   --color-heading: #1a202c;
   --color-heading-black: black;
   --color-accent: #d1dce5;
@@ -413,11 +412,12 @@ a:focus {
 }
 
 code[class*="language-"]:not(.gatsby-highlight code) {
-  font-family: var(--fontFamily-code);
   font-size: var(--fontSize-0);
-  background-color: var(--color-complementary);
-  color: var(--color-text-white);
-  padding: var(--spacing-1) var(--spacing-2);
+  font-weight: var(--fontWeight-bold);
+  background-color: initial;
+  border: var(--spacing-px) solid var(--color-complementary);
+  color: var(--color-complementary);
+  padding: var(--spacing-1) var(--spacing-1);
 }
 
 .gatsby-highlight {
