@@ -95,23 +95,21 @@ program
     const tagList = await getTags()
     const tags = await inquireTag(tagList)
 
-    fs.mkdirSync(dir)
-    fs.writeFileSync(
-      `${dir}/index.md`,
-      `---
+    const frontmatter = `---
 slug: ${slug}
 date: ${date}
 title: ${title}
 description: ${description}
 tags:${tags.map(tag => "\n  - " + tag).join(``)}
----`,
-      function (err) {
-        if (err) {
-          return console.log(err)
-        }
-        console.log(`${title} was created!`)
-      }
-    )
+---`
+
+    try {
+      fs.mkdirSync(dir)
+      fs.writeFileSync(`${dir}/index.md`, frontmatter)
+      console.log(frontmatter)
+    } catch (err) {
+      console.log(err)
+    }
   })
 
 program.parse(process.argv)
