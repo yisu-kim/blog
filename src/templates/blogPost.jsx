@@ -51,7 +51,11 @@ const BlogPostTemplate = ({ data, location }) => {
             <span className="blog-post-date">{date}</span>
             {tags &&
               tags.map(tag => (
-                <a href={`/tags/${kebabCase(tag)}/`} className="blog-post-tag">
+                <a
+                  key={kebabCase(tag)}
+                  href={`/tags/${kebabCase(tag)}/`}
+                  className="blog-post-tag"
+                >
                   #{tag}
                 </a>
               ))}
