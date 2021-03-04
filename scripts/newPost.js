@@ -24,13 +24,12 @@ const getTags = async () => {
 }
 
 const inquireTag = async (choices, results = []) => {
-  const DONE = { name: `[DONE!]`, value: null }
+  const endTagOption = { name: `[DONE!]`, value: null }
+  const customTagOption = `[NEW TAG]`
   const currChoices = [..._.difference(choices, results)]
 
-  let tags = []
-  const customTagOption = `[NEW TAG]`
   const tagChoices = [
-    DONE,
+    endTagOption,
     customTagOption,
     new inquirer.Separator(),
     ...currChoices,
@@ -49,12 +48,13 @@ const inquireTag = async (choices, results = []) => {
     return _.uniq(results)
   }
 
+  let tags = []
   if (selectedTag === customTagOption) {
     const { customizedTag } = await inquirer.prompt([
       {
         type: `input`,
         name: `customizedTag`,
-        message: `Enter the customized tag`,
+        message: `Enter the customized tag:`,
         validate: val => {
           if (val.includes(`'`)) {
             return `Cannot use single quote`
