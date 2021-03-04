@@ -488,6 +488,12 @@ code[class*="language-"]:not(.gatsby-highlight code) {
   color: var(--color-text-gray);
 }
 
+/* for responsive gif */
+
+.gif-wrapper img {
+  max-width: 100%;
+}
+
 /* visuallyhidden code snippet from w3.org */
 
 .visually-hidden {
