@@ -8,6 +8,7 @@ import SEO from "../components/seo"
 import SearchBar from "../components/searchBar"
 import flexSearch from "../utils/flexSearch"
 import Pagination from "../components/pagination"
+import Img from "gatsby-image"
 
 const BlogIndex = ({ data, location, pageContext }) => {
   const {
@@ -73,38 +74,44 @@ const BlogIndex = ({ data, location, pageContext }) => {
           const {
             excerpt,
             fields: { slug },
-            frontmatter: { date, title, description, tags },
+            frontmatter: { date, title, description, tags, thumbnail },
           } = post
 
           return (
             <li key={slug} className="post-list-item">
               <article itemScope itemType="http://schema.org/Article">
-                <header>
-                  <h2>
-                    <Link to={slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
-                    </Link>
-                  </h2>
-                  <small>{date}</small>
-                  {tags &&
-                    tags.map(tag => (
-                      <a
-                        key={kebabCase(tag)}
-                        href={`/tags/${kebabCase(tag)}/`}
-                        className="post-list-item-tag"
-                      >
-                        #{tag}
-                      </a>
-                    ))}
-                </header>
-                <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: description || excerpt,
-                    }}
-                    itemProp="description"
-                  />
-                </section>
+                <div className="post-list-item-content">
+                  <header>
+                    <h2>
+                      <Link to={slug} itemProp="url">
+                        <span itemProp="headline">{title}</span>
+                      </Link>
+                    </h2>
+                    <small>{date}</small>
+                    {tags &&
+                      tags.map(tag => (
+                        <a
+                          key={kebabCase(tag)}
+                          href={`/tags/${kebabCase(tag)}/`}
+                          className="post-list-item-tag"
+                        >
+                          #{tag}
+                        </a>
+                      ))}
+                  </header>
+                  <section>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: description || excerpt,
+                      }}
+                      itemProp="description"
+                    />
+                  </section>
+                </div>
+                <Img
+                  fixed={thumbnail.childImageSharp.fixed}
+                  alt={`thumbnail of ${title}`}
+                />
               </article>
             </li>
           )
@@ -143,6 +150,13 @@ export const pageQuery = graphql`
           title
           description
           tags
+          thumbnail {
+            childImageSharp {
+              fixed(width: 100) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
         }
       }
     }
