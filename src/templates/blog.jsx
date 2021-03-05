@@ -108,10 +108,12 @@ const BlogIndex = ({ data, location, pageContext }) => {
                     />
                   </section>
                 </div>
-                <Img
-                  fixed={thumbnail.childImageSharp.fixed}
-                  alt={`thumbnail of ${title}`}
-                />
+                {thumbnail && (
+                  <Img
+                    fixed={thumbnail.childImageSharp.fixed}
+                    alt={`thumbnail of ${title}`}
+                  />
+                )}
               </article>
             </li>
           )
