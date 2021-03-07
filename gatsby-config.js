@@ -7,6 +7,7 @@ module.exports = {
     },
     description: `삽질 기록을 위한 개발 블로그`,
     siteUrl: `https://yisu-kim-blog.netlify.app/`,
+    source: `https://github.com/yisu-kim/blog`,
     social: {
       github: `yisu-kim`,
     },
