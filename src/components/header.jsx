@@ -49,21 +49,24 @@ export default function Header({ title, setSearchQuery, source }) {
           <Link to="/">{title}</Link>
         </Typography>
         <SearchBar setSearchQuery={setSearchQuery} />
-        <IconButton
-          edge="end"
-          className={classes.githubButton}
-          href={source}
-          color="inherit"
-          aria-label="GitHub repository"
-        >
-          <GitHubIcon />
-        </IconButton>
+        {source && (
+          <IconButton
+            edge="end"
+            className={classes.githubButton}
+            href={source}
+            color="inherit"
+            aria-label="GitHub repository"
+          >
+            <GitHubIcon />
+          </IconButton>
+        )}
       </Toolbar>
     </AppBar>
   )
 }
 
 Header.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  setSearchQuery: PropTypes.func.isRequired,
   source: PropTypes.string,
 }

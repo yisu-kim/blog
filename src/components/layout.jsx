@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { graphql, useStaticQuery } from "gatsby"
 import { Container, CssBaseline, ThemeProvider } from "@material-ui/core"
 import muiTheme from "../mui-theme"
@@ -40,4 +41,9 @@ export default function Layout({ setSearchQuery, children }) {
       </ThemeProvider>
     </>
   )
+}
+
+Layout.propTypes = {
+  setSearchQuery: PropTypes.func.isRequired,
+  children: PropTypes.node,
 }

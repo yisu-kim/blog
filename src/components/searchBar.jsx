@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { fade, InputBase, makeStyles } from "@material-ui/core"
 import SearchIcon from "@material-ui/icons/Search"
 
@@ -72,4 +73,8 @@ export default function SearchBar({ setSearchQuery }) {
       />
     </div>
   )
+}
+
+SearchBar.propTypes = {
+  setSearchQuery: PropTypes.func.isRequired,
 }

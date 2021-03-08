@@ -12,6 +12,10 @@ function Copyright({ name }) {
   )
 }
 
+Copyright.propTypes = {
+  name: PropTypes.string,
+}
+
 const useStyles = makeStyles(theme => ({
   footer: {
     marginTop: theme.spacing(8),
@@ -32,6 +36,5 @@ export default function Footer({ name }) {
 }
 
 Footer.propTypes = {
-  description: PropTypes.string,
-  title: PropTypes.string,
+  name: PropTypes.string.isRequired,
 }
