@@ -1,20 +1,28 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import {
   AppBar,
   IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   makeStyles,
+  SwipeableDrawer,
   Toolbar,
-  Typography,
 } from "@material-ui/core"
 import SearchBar from "./searchBar"
 import MenuIcon from "@material-ui/icons/Menu"
+import HomeIcon from "@material-ui/icons/Home"
 import GitHubIcon from "@material-ui/icons/GitHub"
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  list: {
+    width: 250,
   },
   title: {
     display: "none",
@@ -31,8 +39,43 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Header({ title, setSearchQuery, source }) {
+export default function Header({ setSearchQuery, source }) {
   const classes = useStyles()
+  const [state, setState] = useState({
+    isDrawerOpen: false,
+  })
+
+  const toggleDrawer = open => event => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return
+    }
+
+    setState({ ...state, isDrawerOpen: open })
+  }
+
+  const list = () => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <List>
+        {["Home"].map(text => (
+          <ListItem button key={text} component={Link} to="/">
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  )
 
   return (
     <AppBar position="static">
@@ -42,12 +85,17 @@ export default function Header({ title, setSearchQuery, source }) {
           className={classes.menuButton}
           color="inherit"
           aria-label="open drawer"
+          onClick={toggleDrawer(true)}
         >
           <MenuIcon />
         </IconButton>
-        <Typography className={classes.title} variant="h6" noWrap>
-          <Link to="/">{title}</Link>
-        </Typography>
+        <SwipeableDrawer
+          open={state.isDrawerOpen}
+          onClose={toggleDrawer(false)}
+          onOpen={toggleDrawer(true)}
+        >
+          {list()}
+        </SwipeableDrawer>
         <SearchBar setSearchQuery={setSearchQuery} />
         {source && (
           <IconButton
@@ -66,7 +114,6 @@ export default function Header({ title, setSearchQuery, source }) {
 }
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
   source: PropTypes.string,
 }

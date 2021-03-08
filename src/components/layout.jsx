@@ -26,7 +26,6 @@ export default function Layout({ children }) {
   const {
     site: {
       siteMetadata: {
-        title,
         author: { name },
         source,
       },
@@ -39,7 +38,7 @@ export default function Layout({ children }) {
     <>
       <CssBaseline />
       <ThemeProvider theme={muiTheme}>
-        <Header title={title} setSearchQuery={setSearchQuery} source={source} />
+        <Header setSearchQuery={setSearchQuery} source={source} />
         <Container maxWidth="sm">
           <SearchResults searchQuery={searchQuery} />
           {children}
@@ -51,6 +50,5 @@ export default function Layout({ children }) {
 }
 
 Layout.propTypes = {
-  setSearchQuery: PropTypes.func.isRequired,
   children: PropTypes.node,
 }
