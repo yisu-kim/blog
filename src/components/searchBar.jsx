@@ -1,36 +1,75 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
+import { fade, InputBase, makeStyles } from "@material-ui/core"
+import SearchIcon from "@material-ui/icons/Search"
 
-const SearchBar = ({ setSearchQuery }) => {
-  const formRef = React.createRef()
+const useStyles = makeStyles(theme => ({
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "auto",
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "24ch",
+      "&:focus": {
+        width: "32ch",
+      },
+    },
+  },
+  githubButton: {
+    marginLeft: theme.spacing(2),
+  },
+}))
+
+export default function SearchBar({ setSearchQuery }) {
+  const classes = useStyles()
   const inputRef = React.createRef()
-
-  const handleSubmit = e => {
-    e.preventDefault()
-  }
 
   const handleChange = e => {
     setSearchQuery(e.target.value)
   }
 
   return (
-    <form ref={formRef} className="search-bar" onSubmit={handleSubmit}>
-      <label htmlFor="search-bar-input">
-        <span className="visually-hidden">Search something :)</span>
-      </label>
-      <input
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
+      </div>
+      <InputBase
         ref={inputRef}
-        id="search-bar-input"
-        type="text"
-        placeholder="제목, 태그, 본문 검색 :)"
+        placeholder="Search…"
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        inputProps={{ "aria-label": "search" }}
         onChange={handleChange}
       />
-      <button type="submit" aria-label="search button">
-        <FontAwesomeIcon icon={faSearch} />
-      </button>
-    </form>
+    </div>
   )
 }
-
-export default SearchBar

@@ -1,15 +1,11 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import { config } from "@fortawesome/fontawesome-svg-core"
-import "@fortawesome/fontawesome-svg-core/styles.css"
 import { Container, CssBaseline, ThemeProvider } from "@material-ui/core"
 import muiTheme from "../mui-theme"
 import Header from "./header"
 import Footer from "./footer"
 
-config.autoAddCss = false
-
-export default function Layout({ children }) {
+export default function Layout({ setSearchQuery, children }) {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -38,7 +34,7 @@ export default function Layout({ children }) {
     <>
       <CssBaseline />
       <ThemeProvider theme={muiTheme}>
-        <Header title={title} source={source} />
+        <Header title={title} setSearchQuery={setSearchQuery} source={source} />
         <Container maxWidth="sm">{children}</Container>
         <Footer name={name} />
       </ThemeProvider>

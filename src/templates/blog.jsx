@@ -2,15 +2,13 @@ import React, { useState } from "react"
 import kebabCase from "lodash/kebabCase"
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import SearchBar from "../components/searchBar"
 import flexSearch from "../utils/flexSearch"
 import Pagination from "../components/pagination"
 import Img from "gatsby-image"
 
-const BlogIndex = ({ data, location, pageContext }) => {
+export default function BlogIndex({ data, location, pageContext }) {
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
     localSearchPages: { index, store },
@@ -55,20 +53,24 @@ const BlogIndex = ({ data, location, pageContext }) => {
 
   if (posts.length === 0) {
     return (
-      <Layout location={location} title={siteTitle}>
+      <Layout
+        location={location}
+        title={siteTitle}
+        setSearchQuery={setSearchQuery}
+      >
         <SEO title="All posts" />
-        <Bio />
-        <SearchBar setSearchQuery={setSearchQuery} />
         <p>Sorry, no blog posts found. :(</p>
       </Layout>
     )
   }
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout
+      location={location}
+      title={siteTitle}
+      setSearchQuery={setSearchQuery}
+    >
       <SEO title="All posts" />
-      <Bio />
-      <SearchBar setSearchQuery={setSearchQuery} />
       <ol className="post-list">
         {posts.map(post => {
           const {
@@ -123,8 +125,6 @@ const BlogIndex = ({ data, location, pageContext }) => {
     </Layout>
   )
 }
-
-export default BlogIndex
 
 export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!) {
