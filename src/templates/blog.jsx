@@ -3,10 +3,39 @@ import kebabCase from "lodash/kebabCase"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Pagination from "../components/pagination"
+import { makeStyles } from "@material-ui/core/styles"
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Chip,
+  Hidden,
+  Typography,
+} from "@material-ui/core"
 import Img from "gatsby-image"
+import Pagination from "../components/pagination"
+
+const useStyles = makeStyles(theme => ({
+  card: {
+    marginTop: theme.spacing(2),
+  },
+  cardArea: {
+    display: "flex",
+  },
+  cardDetails: {
+    flex: 1,
+  },
+  cardMedia: {
+    width: 160,
+    margin: "auto",
+    textAlign: "center",
+  },
+}))
 
 export default function BlogIndex({ data, location, pageContext }) {
+  const classes = useStyles()
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
     allMarkdownRemark: { nodes: posts },
@@ -17,76 +46,71 @@ export default function BlogIndex({ data, location, pageContext }) {
   const isLast = currentPage === numPages
   const prevPage = currentPage - 1 === 1 ? "/" : `/page/${currentPage - 1}`
   const nextPage = `/page/${currentPage + 1}`
-
-  let prev
-  if (!isFirst) {
-    prev = {
-      to: prevPage,
-      text: `Prev Page`,
-    }
+  const prev = !isFirst && {
+    to: prevPage,
+    text: `Prev Page`,
   }
-
-  let next
-  if (!isLast) {
-    next = {
-      to: nextPage,
-      text: `Next Page`,
-    }
+  const next = !isLast && {
+    to: nextPage,
+    text: `Next Page`,
   }
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
-      <ol className="post-list">
-        {posts.map(post => {
-          const {
-            excerpt,
-            fields: { slug },
-            frontmatter: { date, title, description, tags, thumbnail },
-          } = post
+      {posts.map(post => {
+        const {
+          excerpt,
+          fields: { slug },
+          frontmatter: { date, title, description, tags, thumbnail },
+        } = post
 
-          return (
-            <li key={slug} className="post-list-item">
-              <article itemScope itemType="http://schema.org/Article">
-                <div className="post-list-item-content">
-                  <header>
-                    <h2>
-                      <Link to={slug} itemProp="url">
-                        <span itemProp="headline">{title}</span>
-                      </Link>
-                    </h2>
-                    <small>{date}</small>
-                    {tags &&
-                      tags.map(tag => (
-                        <a
-                          key={kebabCase(tag)}
-                          href={`/tags/${kebabCase(tag)}/`}
-                          className="post-list-item-tag"
-                        >
-                          #{tag}
-                        </a>
-                      ))}
-                  </header>
-                  <section>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: description || excerpt,
-                      }}
-                      itemProp="description"
+        return (
+          <Card className={classes.card}>
+            <CardActionArea
+              component={Link}
+              to={slug}
+              className={classes.cardArea}
+            >
+              <CardContent className={classes.cardDetails}>
+                <Typography component="h2" variant="h5">
+                  {title}
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  {date}
+                </Typography>
+                <Typography variant="subtitle1" paragraph>
+                  {description || excerpt}
+                </Typography>
+              </CardContent>
+              {thumbnail && (
+                <Hidden xsDown>
+                  <CardMedia className={classes.cardMedia} title={title}>
+                    <Img
+                      fixed={thumbnail.childImageSharp.fixed}
+                      alt={`thumbnail of ${title}`}
                     />
-                  </section>
-                </div>
-                {thumbnail && (
-                  <Img
-                    fixed={thumbnail.childImageSharp.fixed}
-                    alt={`thumbnail of ${title}`}
+                  </CardMedia>
+                </Hidden>
+              )}
+            </CardActionArea>
+            <CardActions>
+              {tags.length > 0 &&
+                tags.map(tag => (
+                  <Chip
+                    size="small"
+                    label={`#${tag}`}
+                    className={classes.chip}
+                    component={Link}
+                    to={`/tags/${kebabCase(tag)}/`}
+                    clickable
+                    color="secondary"
                   />
-                )}
-              </article>
-            </li>
-          )
-        })}
-      </ol>
+                ))}
+            </CardActions>
+          </Card>
+        )
+      })}
       <Pagination prev={prev} next={next} />
     </Layout>
   )
