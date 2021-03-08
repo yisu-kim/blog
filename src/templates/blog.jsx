@@ -1,18 +1,15 @@
-import React, { useState } from "react"
+import React from "react"
 import kebabCase from "lodash/kebabCase"
 import { Link, graphql } from "gatsby"
-
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import flexSearch from "../utils/flexSearch"
 import Pagination from "../components/pagination"
 import Img from "gatsby-image"
 
 export default function BlogIndex({ data, location, pageContext }) {
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
-    localSearchPages: { index, store },
-    allMarkdownRemark: { nodes },
+    allMarkdownRemark: { nodes: posts },
   } = data
 
   const { currentPage, numPages } = pageContext
@@ -37,39 +34,8 @@ export default function BlogIndex({ data, location, pageContext }) {
     }
   }
 
-  const [searchQuery, setSearchQuery] = useState(``)
-  const results = flexSearch(searchQuery, index, store)
-
-  const unflattenResults = results =>
-    results.map(post => {
-      const { excerpt, slug, title, date, description, tags } = post
-      return {
-        excerpt,
-        fields: { slug },
-        frontmatter: { title, date, description, tags },
-      }
-    })
-  const posts = searchQuery ? unflattenResults(results) : nodes
-
-  if (posts.length === 0) {
-    return (
-      <Layout
-        location={location}
-        title={siteTitle}
-        setSearchQuery={setSearchQuery}
-      >
-        <SEO title="All posts" />
-        <p>Sorry, no blog posts found. :(</p>
-      </Layout>
-    )
-  }
-
   return (
-    <Layout
-      location={location}
-      title={siteTitle}
-      setSearchQuery={setSearchQuery}
-    >
+    <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <ol className="post-list">
         {posts.map(post => {
@@ -132,10 +98,6 @@ export const pageQuery = graphql`
       siteMetadata {
         title
       }
-    }
-    localSearchPages {
-      index
-      store
     }
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
