@@ -90,6 +90,6 @@ export default function Pagination({ prev, next }) {
 }
 
 Pagination.propTypes = {
-  prev: PropTypes.object,
-  next: PropTypes.object,
+  prev: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  next: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
 }
