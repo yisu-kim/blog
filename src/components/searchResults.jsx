@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { Link, graphql, useStaticQuery } from "gatsby"
 import flexSearch from "../utils/flexSearch"
 import {
@@ -94,4 +95,8 @@ export default function SearchResults({ searchQuery }) {
       )}
     </>
   )
+}
+
+SearchResults.propTypes = {
+  searchQuery: PropTypes.string,
 }

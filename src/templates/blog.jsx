@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import kebabCase from "lodash/kebabCase"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
@@ -34,10 +35,9 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function BlogIndex({ data, location, pageContext }) {
+export default function BlogIndex({ data, pageContext }) {
   const classes = useStyles()
   const {
-    site: { siteMetadata: { title: siteTitle } = `Title` },
     allMarkdownRemark: { nodes: posts },
   } = data
 
@@ -56,7 +56,7 @@ export default function BlogIndex({ data, location, pageContext }) {
   }
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout>
       <SEO title="All posts" />
       {posts.map(post => {
         const {
@@ -118,11 +118,6 @@ export default function BlogIndex({ data, location, pageContext }) {
 
 export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
       limit: $limit
@@ -150,3 +145,8 @@ export const pageQuery = graphql`
     }
   }
 `
+
+BlogIndex.propTypes = {
+  data: PropTypes.object.isRequired,
+  pageContext: PropTypes.object.isRequired,
+}
