@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import kebabCase from "lodash/kebabCase"
 import { graphql, Link } from "gatsby"
 import Bio from "../components/bio"
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const BlogPostTemplate = ({ data, location }) => {
+export default function BlogPostTemplate({ data, location }) {
   const classes = useStyles()
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
@@ -92,8 +93,6 @@ const BlogPostTemplate = ({ data, location }) => {
   )
 }
 
-export default BlogPostTemplate
-
 export const pageQuery = graphql`
   query BlogPostBySlug(
     $id: String!
@@ -134,3 +133,8 @@ export const pageQuery = graphql`
     }
   }
 `
+
+BlogPostTemplate.propTypes = {
+  data: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+}
