@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import { Button, makeStyles, Typography } from "@material-ui/core"
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore"
@@ -45,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function Pagination({ prev, next }) {
+export default function Pagination({ prev, next }) {
   const classes = useStyles()
 
   return (
@@ -88,4 +89,7 @@ function Pagination({ prev, next }) {
   )
 }
 
-export default Pagination
+Pagination.propTypes = {
+  prev: PropTypes.object,
+  next: PropTypes.object,
+}
