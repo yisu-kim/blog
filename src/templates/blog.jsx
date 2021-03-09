@@ -66,7 +66,7 @@ export default function BlogIndex({ data, pageContext }) {
         } = post
 
         return (
-          <Card className={classes.card}>
+          <Card key={slug} className={classes.card}>
             <CardActionArea
               component={Link}
               to={slug}
@@ -98,6 +98,7 @@ export default function BlogIndex({ data, pageContext }) {
               {tags.length > 0 &&
                 tags.map(tag => (
                   <Chip
+                    key={kebabCase(tag)}
                     size="small"
                     label={`#${tag}`}
                     className={classes.chip}
