@@ -15,6 +15,7 @@ import {
 import SearchBar from "./searchBar"
 import MenuIcon from "@material-ui/icons/Menu"
 import HomeIcon from "@material-ui/icons/Home"
+import LabelIcon from "@material-ui/icons/Label"
 import GitHubIcon from "@material-ui/icons/GitHub"
 
 const useStyles = makeStyles(theme => ({
@@ -57,7 +58,7 @@ export default function Header({ setSearchQuery, source }) {
     setState({ ...state, isDrawerOpen: open })
   }
 
-  const list = () => (
+  const list = menuItems => (
     <div
       className={classes.list}
       role="presentation"
@@ -65,12 +66,10 @@ export default function Header({ setSearchQuery, source }) {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Home"].map(text => (
-          <ListItem button key={text} component={Link} to="/">
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary={text} />
+        {menuItems.map(menu => (
+          <ListItem button key={menu.text} component={Link} to={menu.url}>
+            <ListItemIcon>{menu.icon}</ListItemIcon>
+            <ListItemText primary={menu.text} />
           </ListItem>
         ))}
       </List>
@@ -94,7 +93,10 @@ export default function Header({ setSearchQuery, source }) {
           onClose={toggleDrawer(false)}
           onOpen={toggleDrawer(true)}
         >
-          {list()}
+          {list([
+            { text: "Home", url: "/", icon: <HomeIcon /> },
+            { text: "All tags", url: "/tags", icon: <LabelIcon /> },
+          ])}
         </SwipeableDrawer>
         <SearchBar setSearchQuery={setSearchQuery} />
         {source && (
