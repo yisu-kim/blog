@@ -74,10 +74,10 @@ export default function BlogIndex({ data, pageContext }) {
                 <Typography component="h2" variant="h5">
                   {title}
                 </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
+                <Typography paragraph variant="subtitle2" color="textSecondary">
                   {date}
                 </Typography>
-                <Typography variant="subtitle1" paragraph>
+                <Typography variant="body2">
                   {description || excerpt}
                 </Typography>
               </CardContent>
