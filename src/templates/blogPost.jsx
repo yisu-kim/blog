@@ -23,8 +23,7 @@ const BlogPostTemplate = ({ data, location }) => {
   if (prevPost) {
     prev = {
       to: prevPost.fields.slug,
-      text: prevPost.frontmatter.title,
-      secondText: `Previous`,
+      title: prevPost.frontmatter.title,
     }
   }
 
@@ -32,8 +31,7 @@ const BlogPostTemplate = ({ data, location }) => {
   if (nextPost) {
     next = {
       to: nextPost.fields.slug,
-      text: nextPost.frontmatter.title,
-      secondText: `Next`,
+      title: nextPost.frontmatter.title,
     }
   }
 

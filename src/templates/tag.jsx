@@ -29,7 +29,6 @@ const Tag = ({ pageContext, data, location }) => {
   if (!isFirst) {
     prev = {
       to: prevPage,
-      text: `Prev Page`,
     }
   }
 
@@ -37,7 +36,6 @@ const Tag = ({ pageContext, data, location }) => {
   if (!isLast) {
     next = {
       to: nextPage,
-      text: `Next Page`,
     }
   }
 

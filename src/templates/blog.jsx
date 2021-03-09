@@ -48,11 +48,9 @@ export default function BlogIndex({ data, pageContext }) {
   const nextPage = `/page/${currentPage + 1}`
   const prev = !isFirst && {
     to: prevPage,
-    text: `Prev Page`,
   }
   const next = !isLast && {
     to: nextPage,
-    text: `Next Page`,
   }
 
   return (
