@@ -99,7 +99,6 @@ export default function BlogIndex({ data, pageContext }) {
                     key={kebabCase(tag)}
                     size="small"
                     label={`#${tag}`}
-                    className={classes.chip}
                     component={Link}
                     to={`/tags/${kebabCase(tag)}/`}
                     clickable

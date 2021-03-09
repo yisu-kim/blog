@@ -1,13 +1,31 @@
 import React from "react"
 import kebabCase from "lodash/kebabCase"
-import { graphql } from "gatsby"
-
+import { graphql, Link } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Pagination from "../components/pagination"
+import { Chip, Divider, makeStyles, Typography } from "@material-ui/core"
+
+const useStyles = makeStyles(theme => ({
+  post: {
+    marginTop: theme.spacing(8),
+  },
+  tags: {
+    display: "flex",
+    flexWrap: "wrap",
+    listStyle: "none",
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    padding: 0,
+  },
+  tag: {
+    margin: theme.spacing(0.5),
+  },
+}))
 
 const BlogPostTemplate = ({ data, location }) => {
+  const classes = useStyles()
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
     markdownRemark: {
@@ -19,52 +37,52 @@ const BlogPostTemplate = ({ data, location }) => {
     next: nextPost,
   } = data
 
-  let prev
-  if (prevPost) {
-    prev = {
-      to: prevPost.fields.slug,
-      title: prevPost.frontmatter.title,
-    }
+  const prev = prevPost && {
+    to: prevPost.fields.slug,
+    title: prevPost.frontmatter.title,
   }
 
-  let next
-  if (nextPost) {
-    next = {
-      to: nextPost.fields.slug,
-      title: nextPost.frontmatter.title,
-    }
+  const next = nextPost && {
+    to: nextPost.fields.slug,
+    title: nextPost.frontmatter.title,
   }
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title={title} description={description || excerpt} />
       <article
-        className="blog-post"
+        className={classes.post}
         itemScope
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{title}</h1>
-          <p>
-            <span className="blog-post-date">{date}</span>
+          <Typography variant="h2" component="h1" itemProp="headline">
+            {title}
+          </Typography>
+          <Typography color="textSecondary">{date}</Typography>
+          <ul className={classes.tags}>
             {tags &&
               tags.map(tag => (
-                <a
-                  key={kebabCase(tag)}
-                  href={`/tags/${kebabCase(tag)}/`}
-                  className="blog-post-tag"
-                >
-                  #{tag}
-                </a>
+                <li key={kebabCase(tag)}>
+                  <Chip
+                    size="small"
+                    label={`#${tag}`}
+                    className={classes.tag}
+                    component={Link}
+                    to={`/tags/${kebabCase(tag)}/`}
+                    clickable
+                    color="secondary"
+                  />
+                </li>
               ))}
-          </p>
+          </ul>
         </header>
-        <hr />
+        <Divider />
         <section
           dangerouslySetInnerHTML={{ __html: html }}
           itemProp="articleBody"
         />
-        <hr />
+        <Divider />
         <footer>
           <Bio />
         </footer>
