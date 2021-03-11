@@ -50,7 +50,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchBar({ setSearchQuery }) {
   const classes = useStyles()
-  const inputRef = React.createRef()
 
   const handleChange = e => {
     setSearchQuery(e.target.value)
@@ -62,7 +61,6 @@ export default function SearchBar({ setSearchQuery }) {
         <SearchIcon />
       </div>
       <InputBase
-        ref={inputRef}
         placeholder="Search…"
         classes={{
           root: classes.inputRoot,
