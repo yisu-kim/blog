@@ -7,23 +7,66 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Pagination from "../components/pagination"
 import { Chip, Divider, makeStyles, Typography } from "@material-ui/core"
+import muiTheme from "../mui-theme"
+import "../markdown.css"
 
-const useStyles = makeStyles(theme => ({
-  post: {
-    marginTop: theme.spacing(8),
-  },
-  tags: {
-    display: "flex",
-    flexWrap: "wrap",
-    listStyle: "none",
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    padding: 0,
-  },
-  tag: {
-    margin: theme.spacing(0.5),
-  },
-}))
+const useStyles = makeStyles(theme => {
+  theme = { ...muiTheme }
+  return {
+    container: {
+      marginTop: theme.spacing(8),
+    },
+    tags: {
+      display: "flex",
+      flexWrap: "wrap",
+      listStyle: "none",
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      padding: 0,
+    },
+    tag: {
+      margin: theme.spacing(0.5),
+    },
+    post: {
+      margin: theme.spacing(1),
+      marginTop: theme.spacing(4),
+      marginBottom: theme.spacing(4),
+      "& h2": {
+        position: "relative",
+        marginLeft: -1 * theme.spacing(2),
+        paddingLeft: theme.spacing(2),
+      },
+      "& h2::before": {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        content: "''",
+        width: theme.spacing(0.7),
+        height: "90%",
+        borderRadius: theme.spacing(1),
+        background: `linear-gradient(
+          ${theme.palette.primary.main} 20%,
+          ${theme.palette.secondary.main} 100%
+        )`,
+      },
+      "& code:not(.gatsby-highlight code)": {
+        padding: `${theme.spacing(0.1)}px ${theme.spacing(0.5)}px`,
+        border: `${theme.spacing(0.2)}px solid ${theme.palette.secondary.dark}`,
+        backgroundColor: "initial",
+        color: theme.palette.secondary.dark,
+        fontFamily: theme.typography.body2.fontFamily,
+        fontSize: theme.typography.body2.fontSize,
+      },
+      '& .gatsby-highlight pre[class*="language-"]': {
+        borderRadius: theme.spacing(1),
+      },
+      '& .gatsby-highlight code[class*="language-"]': {
+        fontFamily: theme.typography.code.fontFamily,
+        fontSize: theme.typography.body2.fontSize,
+      },
+    },
+  }
+})
 
 export default function BlogPostTemplate({ data, location }) {
   const classes = useStyles()
@@ -52,12 +95,12 @@ export default function BlogPostTemplate({ data, location }) {
     <Layout location={location} title={siteTitle}>
       <SEO title={title} description={description || excerpt} />
       <article
-        className={classes.post}
+        className={classes.container}
         itemScope
         itemType="http://schema.org/Article"
       >
         <header>
-          <Typography variant="h2" component="h1" itemProp="headline">
+          <Typography variant="h3" component="h1" itemProp="headline">
             {title}
           </Typography>
           <Typography color="textSecondary">{date}</Typography>
@@ -80,6 +123,7 @@ export default function BlogPostTemplate({ data, location }) {
         </header>
         <Divider />
         <section
+          className={`${classes.post} markdown-body`}
           dangerouslySetInnerHTML={{ __html: html }}
           itemProp="articleBody"
         />
