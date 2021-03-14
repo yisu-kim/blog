@@ -14,11 +14,9 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core"
-import muiTheme from "../mui-theme"
-import "../markdown.css"
+import Markdown from "../components/markdown"
 
 const useStyles = makeStyles(theme => {
-  theme = { ...muiTheme }
   return {
     container: {
       marginTop: theme.spacing(8),
@@ -40,40 +38,6 @@ const useStyles = makeStyles(theme => {
       margin: theme.spacing(1),
       marginTop: theme.spacing(4),
       marginBottom: theme.spacing(4),
-      "& h2": {
-        position: "relative",
-        marginLeft: -1 * theme.spacing(1.5),
-        paddingLeft: theme.spacing(1.5),
-      },
-      "& h2::before": {
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        content: "''",
-        width: theme.spacing(0.7),
-        height: "90%",
-        borderRadius: theme.spacing(1),
-        background: `linear-gradient(
-          ${theme.palette.primary.main} 20%,
-          ${theme.palette.secondary.main} 100%
-        )`,
-      },
-      "& code:not(.gatsby-highlight code)": {
-        ...theme.typography.body2,
-        padding: `${theme.spacing(0.25)}px ${theme.spacing(0.5)}px`,
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.common.white,
-      },
-      '& .gatsby-highlight pre[class*="language-"]': {
-        borderRadius: theme.spacing(1),
-      },
-      '& .gatsby-highlight code[class*="language-"]': {
-        ...theme.typography.body2,
-        fontFamily: theme.typography.code.fontFamily,
-      },
-      "& .gatsby-highlight span.token.comment": {
-        color: theme.typography.code.comment.color,
-      },
     },
   }
 })
@@ -132,11 +96,12 @@ export default function BlogPostTemplate({ data, location }) {
           </List>
         </header>
         <Divider />
-        <section
-          className={`${classes.post} markdown-body`}
-          dangerouslySetInnerHTML={{ __html: html }}
-          itemProp="articleBody"
-        />
+        <Markdown className={classes.post}>
+          <section
+            dangerouslySetInnerHTML={{ __html: html }}
+            itemProp="articleBody"
+          />
+        </Markdown>
         <Divider />
         <footer>
           <Bio />
