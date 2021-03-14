@@ -1,12 +1,12 @@
 module.exports = {
   siteMetadata: {
-    title: `Digging.log`,
+    title: `Flocc`,
     author: {
       name: `Yisu Kim`,
       summary: ``,
     },
     description: `삽질 기록을 위한 개발 블로그`,
-    siteUrl: `https://yisu-kim-blog.netlify.app/`,
+    siteUrl: `https://flocc-blog.netlify.app/`,
     source: `https://github.com/yisu-kim/blog`,
     social: {
       github: `yisu-kim`,
@@ -61,8 +61,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Digging.Log`,
-        short_name: `Digging`,
+        name: `Flocc`,
+        short_name: `Flocc`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#ffffff`,
