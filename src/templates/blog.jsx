@@ -12,7 +12,7 @@ import {
   CardContent,
   CardMedia,
   Chip,
-  Hidden,
+  Grid,
   List,
   ListItem,
   Typography,
@@ -24,19 +24,27 @@ import muiTheme from "../mui-theme"
 const useStyles = makeStyles(theme => {
   theme = { ...muiTheme }
   return {
+    root: {
+      flexGrow: 1,
+    },
     card: {
+      display: "flex",
+      flexDirection: "column",
+      height: "100%",
       marginTop: theme.spacing(2),
     },
     cardArea: {
-      display: "flex",
+      flexGrow: 1,
     },
     cardDetails: {
-      flex: 1,
+      paddingBottom: 0,
+      "& p": {
+        margin: 0,
+        paddingTop: theme.spacing(1),
+      },
     },
-    cardMedia: {
-      width: 160,
-      margin: "auto",
-      textAlign: "center",
+    cardActions: {
+      paddingTop: 0,
     },
     tags: {
       display: "flex",
@@ -71,62 +79,81 @@ export default function BlogIndex({ data, pageContext }) {
   return (
     <Layout>
       <SEO title="All posts" />
-      {posts.map(post => {
-        const {
-          excerpt,
-          fields: { slug },
-          frontmatter: { date, title, description, tags, thumbnail },
-        } = post
+      <div className={classes.root}>
+        <Grid container spacing={3} alignContent="center">
+          {posts.map((post, index) => {
+            const {
+              excerpt,
+              fields: { slug },
+              frontmatter: { date, title, description, tags, thumbnail },
+            } = post
 
-        return (
-          <Card key={slug} className={classes.card}>
-            <CardActionArea
-              component={Link}
-              to={slug}
-              className={classes.cardArea}
-            >
-              <CardContent className={classes.cardDetails}>
-                <Typography component="h2" variant="h5">
-                  {title}
-                </Typography>
-                <Typography paragraph variant="subtitle2" color="textSecondary">
-                  {date}
-                </Typography>
-                <Typography variant="body2">
-                  {description || excerpt}
-                </Typography>
-              </CardContent>
-              {thumbnail && (
-                <Hidden xsDown>
-                  <CardMedia className={classes.cardMedia} title={title}>
-                    <Img
-                      fixed={thumbnail.childImageSharp.fixed}
-                      alt={`thumbnail of ${title}`}
-                    />
-                  </CardMedia>
-                </Hidden>
-              )}
-            </CardActionArea>
-            <CardActions>
-              <List className={classes.tags}>
-                {tags &&
-                  tags.map(tag => (
-                    <ListItem key={kebabCase(tag)} className={classes.tag}>
-                      <Chip
-                        component={Link}
-                        to={`/tags/${kebabCase(tag)}/`}
-                        size="small"
-                        label={`#${tag}`}
-                        clickable
+            const PostCard = () => (
+              <Card className={classes.card}>
+                <CardActionArea
+                  component={Link}
+                  to={slug}
+                  className={classes.cardArea}
+                >
+                  {thumbnail && (
+                    <CardMedia title={title}>
+                      <Img
+                        fluid={thumbnail.childImageSharp.fluid}
+                        alt={`thumbnail of ${title}`}
                       />
-                    </ListItem>
-                  ))}
-              </List>
-            </CardActions>
-          </Card>
-        )
-      })}
-      <Pagination prev={prev} next={next} />
+                    </CardMedia>
+                  )}
+                  <CardContent className={classes.cardDetails}>
+                    <Typography
+                      variant="subtitle2"
+                      component="span"
+                      color="textSecondary"
+                    >
+                      {date}
+                    </Typography>
+                    <Typography component="h2" variant="h5">
+                      {title}
+                    </Typography>
+                    <Typography variant="body2" paragraph>
+                      {description || excerpt}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions className={classes.cardActions}>
+                  <List className={classes.tags}>
+                    {tags &&
+                      tags.map(tag => (
+                        <ListItem key={kebabCase(tag)} className={classes.tag}>
+                          <Chip
+                            component={Link}
+                            to={`/tags/${kebabCase(tag)}/`}
+                            size="small"
+                            label={`#${tag}`}
+                            clickable
+                          />
+                        </ListItem>
+                      ))}
+                  </List>
+                </CardActions>
+              </Card>
+            )
+
+            if (index === 0) {
+              return (
+                <Grid key={slug} item xs={12}>
+                  <PostCard />
+                </Grid>
+              )
+            }
+            return (
+              <Grid key={slug} item xs={12} sm={6}>
+                <PostCard />
+              </Grid>
+            )
+          })}
+          <Pagination prev={prev} next={next} />
+        </Grid>
+      </div>
     </Layout>
   )
 }
@@ -150,8 +177,8 @@ export const pageQuery = graphql`
           tags
           thumbnail {
             childImageSharp {
-              fixed(width: 100) {
-                ...GatsbyImageSharpFixed
+              fluid(maxWidth: 700) {
+                ...GatsbyImageSharpFluid
               }
             }
           }
