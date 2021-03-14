@@ -31,6 +31,9 @@ const muiTheme = createMuiTheme({
     },
     code: {
       fontFamily: '"Fira Code", "Noto Sans KR"',
+      comment: {
+        color: "#ffcccc",
+      },
     },
   },
 })

@@ -73,6 +73,9 @@ const useStyles = makeStyles(theme => {
         fontFamily: theme.typography.code.fontFamily,
         fontSize: theme.typography.body2.fontSize,
       },
+      "& .gatsby-highlight span.token.comment": {
+        color: theme.typography.code.comment.color,
+      },
     },
   }
 })
