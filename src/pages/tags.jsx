@@ -55,20 +55,21 @@ const Tags = ({ data, location }) => {
             {tags.map(tag => {
               const { fieldValue, totalCount } = tag
               return (
-                <ListItem
-                  key={fieldValue}
-                  component={Link}
-                  to={`/tags/${kebabCase(fieldValue)}/`}
-                  className={classes.tag}
-                  button
-                >
-                  <Typography className={classes.tagName}>
-                    #{fieldValue}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    총 {totalCount}개의 포스트
-                  </Typography>
-                </ListItem>
+                <li key={fieldValue}>
+                  <ListItem
+                    component={Link}
+                    to={`/tags/${kebabCase(fieldValue)}/`}
+                    className={classes.tag}
+                    button
+                  >
+                    <Typography className={classes.tagName}>
+                      #{fieldValue}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      총 {totalCount}개의 포스트
+                    </Typography>
+                  </ListItem>
+                </li>
               )
             })}
           </List>

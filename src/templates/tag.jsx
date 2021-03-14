@@ -86,18 +86,19 @@ const Tag = ({ pageContext, data, location }) => {
                 frontmatter: { date, title },
               } = node
               return (
-                <ListItem
-                  key={slug}
-                  component={Link}
-                  to={slug}
-                  className={classes.tag}
-                  button
-                >
-                  <Typography className={classes.tagName}>{title}</Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {date}
-                  </Typography>
-                </ListItem>
+                <li key={slug}>
+                  <ListItem
+                    component={Link}
+                    to={slug}
+                    className={classes.tag}
+                    button
+                  >
+                    <Typography className={classes.tagName}>{title}</Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      {date}
+                    </Typography>
+                  </ListItem>
+                </li>
               )
             })}
           </List>
