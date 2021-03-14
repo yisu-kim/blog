@@ -4,8 +4,33 @@ import kebabCase from "lodash/kebabCase"
 import { Link, graphql } from "gatsby"
 import SEO from "../components/seo"
 import Layout from "../components/layout"
+import {
+  Container,
+  Divider,
+  List,
+  ListItem,
+  makeStyles,
+  Typography,
+} from "@material-ui/core"
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: theme.spacing(8),
+  },
+  header: {
+    marginBottom: theme.spacing(2),
+  },
+  tag: {
+    flexWrap: "wrap",
+  },
+  tagName: {
+    flexGrow: 1,
+    marginRight: theme.spacing(2),
+  },
+}))
 
 const Tags = ({ data, location }) => {
+  const classes = useStyles()
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
     allMarkdownRemark: { group: tags },
@@ -14,26 +39,40 @@ const Tags = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All tags" />
-      <article itemScope itemType="http://schema.org/Article">
-        <header>
-          <h1 itemProp="headline">Tags</h1>
+      <article
+        className={classes.container}
+        itemScope
+        itemType="http://schema.org/Article"
+      >
+        <header className={classes.header}>
+          <Typography variant="h3" component="h1" itemProp="headline">
+            All Tags
+          </Typography>
         </header>
-        <hr />
-        <section className="tag-list" itemProp="articleBody">
-          <ul>
+        <Divider />
+        <Container itemProp="articleBody">
+          <List>
             {tags.map(tag => {
               const { fieldValue, totalCount } = tag
               return (
-                <li key={fieldValue} className="tag">
-                  <Link to={`/tags/${kebabCase(fieldValue)}/`}>
+                <ListItem
+                  key={fieldValue}
+                  component={Link}
+                  to={`/tags/${kebabCase(fieldValue)}/`}
+                  className={classes.tag}
+                  button
+                >
+                  <Typography className={classes.tagName}>
                     #{fieldValue}
-                  </Link>
-                  <p>총 {totalCount}개의 포스트</p>
-                </li>
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    총 {totalCount}개의 포스트
+                  </Typography>
+                </ListItem>
               )
             })}
-          </ul>
-        </section>
+          </List>
+        </Container>
       </article>
     </Layout>
   )
