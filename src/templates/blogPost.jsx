@@ -6,7 +6,14 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Pagination from "../components/pagination"
-import { Chip, Divider, makeStyles, Typography } from "@material-ui/core"
+import {
+  Chip,
+  Divider,
+  List,
+  ListItem,
+  makeStyles,
+  Typography,
+} from "@material-ui/core"
 import muiTheme from "../mui-theme"
 import "../markdown.css"
 
@@ -16,16 +23,21 @@ const useStyles = makeStyles(theme => {
     container: {
       marginTop: theme.spacing(8),
     },
+    date: {
+      marginLeft: theme.spacing(0.5),
+      marginBottom: theme.spacing(2),
+    },
     tags: {
       display: "flex",
-      flexWrap: "wrap",
-      listStyle: "none",
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-      padding: 0,
+      flexDirection: "row",
     },
     tag: {
-      margin: theme.spacing(0.5),
+      marginRight: theme.spacing(1),
+      padding: 0,
+      width: "auto",
+    },
+    tagName: {
+      backgroundColor: theme.palette.secondary.light,
     },
     post: {
       margin: theme.spacing(1),
@@ -33,8 +45,8 @@ const useStyles = makeStyles(theme => {
       marginBottom: theme.spacing(4),
       "& h2": {
         position: "relative",
-        marginLeft: -1 * theme.spacing(2),
-        paddingLeft: theme.spacing(2),
+        marginLeft: -1 * theme.spacing(1.5),
+        paddingLeft: theme.spacing(1.5),
       },
       "& h2::before": {
         position: "absolute",
@@ -103,23 +115,24 @@ export default function BlogPostTemplate({ data, location }) {
           <Typography variant="h3" component="h1" itemProp="headline">
             {title}
           </Typography>
-          <Typography color="textSecondary">{date}</Typography>
-          <ul className={classes.tags}>
+          <Typography className={classes.date} color="textSecondary">
+            {date}
+          </Typography>
+          <List className={classes.tags}>
             {tags &&
               tags.map(tag => (
-                <li key={kebabCase(tag)}>
+                <ListItem key={kebabCase(tag)} className={classes.tag}>
                   <Chip
-                    size="small"
-                    label={`#${tag}`}
-                    className={classes.tag}
+                    className={classes.tagName}
                     component={Link}
                     to={`/tags/${kebabCase(tag)}/`}
+                    label={`#${tag}`}
                     clickable
-                    color="secondary"
+                    size="small"
                   />
-                </li>
+                </ListItem>
               ))}
-          </ul>
+          </List>
         </header>
         <Divider />
         <section
