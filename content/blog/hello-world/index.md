@@ -5,7 +5,7 @@ title: Hello World
 description: 마크다운 샘플
 tags:
   - markdown
-thumbnail: "../../assets/markdown.png"
+thumbnail: "./hello-world.png"
 ---
 
 This is my first post on my new fake blog! How exciting!
