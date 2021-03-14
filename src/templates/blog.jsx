@@ -13,27 +13,45 @@ import {
   CardMedia,
   Chip,
   Hidden,
+  List,
+  ListItem,
   Typography,
 } from "@material-ui/core"
 import Img from "gatsby-image"
 import Pagination from "../components/pagination"
+import muiTheme from "../mui-theme"
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    marginTop: theme.spacing(2),
-  },
-  cardArea: {
-    display: "flex",
-  },
-  cardDetails: {
-    flex: 1,
-  },
-  cardMedia: {
-    width: 160,
-    margin: "auto",
-    textAlign: "center",
-  },
-}))
+const useStyles = makeStyles(theme => {
+  theme = { ...muiTheme }
+  return {
+    card: {
+      marginTop: theme.spacing(2),
+    },
+    cardArea: {
+      display: "flex",
+    },
+    cardDetails: {
+      flex: 1,
+    },
+    cardMedia: {
+      width: 160,
+      margin: "auto",
+      textAlign: "center",
+    },
+    tags: {
+      display: "flex",
+      flexDirection: "row",
+    },
+    tag: {
+      marginLeft: theme.spacing(1),
+      padding: 0,
+      width: "auto",
+    },
+    tagName: {
+      backgroundColor: theme.palette.secondary.light,
+    },
+  }
+})
 
 export default function BlogIndex({ data, pageContext }) {
   const classes = useStyles()
@@ -93,18 +111,21 @@ export default function BlogIndex({ data, pageContext }) {
               )}
             </CardActionArea>
             <CardActions>
-              {tags.length > 0 &&
-                tags.map(tag => (
-                  <Chip
-                    key={kebabCase(tag)}
-                    size="small"
-                    label={`#${tag}`}
-                    component={Link}
-                    to={`/tags/${kebabCase(tag)}/`}
-                    clickable
-                    color="secondary"
-                  />
-                ))}
+              <List className={classes.tags}>
+                {tags &&
+                  tags.map(tag => (
+                    <ListItem key={kebabCase(tag)} className={classes.tag}>
+                      <Chip
+                        className={classes.tagName}
+                        component={Link}
+                        to={`/tags/${kebabCase(tag)}/`}
+                        label={`#${tag}`}
+                        clickable
+                        size="small"
+                      />
+                    </ListItem>
+                  ))}
+              </List>
             </CardActions>
           </Card>
         )
