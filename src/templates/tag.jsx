@@ -5,8 +5,33 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import kebabCase from "lodash/kebabCase"
 import Pagination from "../components/pagination"
+import {
+  Container,
+  Divider,
+  List,
+  ListItem,
+  makeStyles,
+  Typography,
+} from "@material-ui/core"
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: theme.spacing(8),
+  },
+  header: {
+    marginBottom: theme.spacing(2),
+  },
+  tag: {
+    flexWrap: "wrap",
+  },
+  tagName: {
+    flexGrow: 1,
+    marginRight: theme.spacing(2),
+  },
+}))
 
 const Tag = ({ pageContext, data, location }) => {
+  const classes = useStyles()
   const { tag, currentPage, numPages } = pageContext
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
@@ -42,51 +67,41 @@ const Tag = ({ pageContext, data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title={tag} />
-      <article itemScope itemType="http://schema.org/Article">
-        <header>
-          <h1 itemProp="headline">{tagHeader}</h1>
-          <Link to="/tags" className="post-list-item-tag">
-            All tags
-          </Link>
+      <article
+        className={classes.container}
+        itemScope
+        itemType="http://schema.org/Article"
+      >
+        <header className={classes.header}>
+          <Typography variant="h4" component="h1" itemProp="headline">
+            {tagHeader}
+          </Typography>
         </header>
-        <hr />
-        <section>
-          <ol className="post-list">
+        <Divider />
+        <Container itemProp="articleBody">
+          <List component="ol">
             {edges.map(({ node }) => {
               const {
-                excerpt,
                 fields: { slug },
-                frontmatter: { date, title, description },
+                frontmatter: { date, title },
               } = node
               return (
-                <li key={slug}>
-                  <article
-                    className="post-list-item"
-                    itemScope
-                    itemType="http://schema.org/Article"
-                  >
-                    <header>
-                      <h2>
-                        <Link to={slug} itemProp="url">
-                          <span itemProp="headline">{title}</span>
-                        </Link>
-                      </h2>
-                      <small>{date}</small>
-                    </header>
-                    <section>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: description || excerpt,
-                        }}
-                        itemProp="description"
-                      />
-                    </section>
-                  </article>
-                </li>
+                <ListItem
+                  key={slug}
+                  component={Link}
+                  to={slug}
+                  className={classes.tag}
+                  button
+                >
+                  <Typography className={classes.tagName}>{title}</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {date}
+                  </Typography>
+                </ListItem>
               )
             })}
-          </ol>
-        </section>
+          </List>
+        </Container>
         <Pagination prev={prev} next={next} />
       </article>
     </Layout>
@@ -134,14 +149,12 @@ export const pageQuery = graphql`
       totalCount
       edges {
         node {
-          excerpt
           fields {
             slug
           }
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
-            description
           }
         }
       }

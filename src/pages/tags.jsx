@@ -45,7 +45,7 @@ const Tags = ({ data, location }) => {
         itemType="http://schema.org/Article"
       >
         <header className={classes.header}>
-          <Typography variant="h3" component="h1" itemProp="headline">
+          <Typography variant="h4" component="h1" itemProp="headline">
             All Tags
           </Typography>
         </header>
