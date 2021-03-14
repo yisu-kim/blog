@@ -59,19 +59,17 @@ const useStyles = makeStyles(theme => {
         )`,
       },
       "& code:not(.gatsby-highlight code)": {
-        padding: `${theme.spacing(0.1)}px ${theme.spacing(0.5)}px`,
-        border: `${theme.spacing(0.2)}px solid ${theme.palette.secondary.dark}`,
-        backgroundColor: "initial",
-        color: theme.palette.secondary.dark,
-        fontFamily: theme.typography.body2.fontFamily,
-        fontSize: theme.typography.body2.fontSize,
+        ...theme.typography.body2,
+        padding: `${theme.spacing(0.25)}px ${theme.spacing(0.5)}px`,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
       },
       '& .gatsby-highlight pre[class*="language-"]': {
         borderRadius: theme.spacing(1),
       },
       '& .gatsby-highlight code[class*="language-"]': {
+        ...theme.typography.body2,
         fontFamily: theme.typography.code.fontFamily,
-        fontSize: theme.typography.body2.fontSize,
       },
       "& .gatsby-highlight span.token.comment": {
         color: theme.typography.code.comment.color,
