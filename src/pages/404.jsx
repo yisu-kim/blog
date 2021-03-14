@@ -46,8 +46,8 @@ const NotFoundPage = ({ data, location }) => {
             component={Link}
             to="/"
             className={classes.homeButton}
-            variant="outlined"
-            color="secondary"
+            variant="contained"
+            color="primary"
           >
             Return to Home
           </Button>
