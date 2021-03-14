@@ -158,6 +158,36 @@ export default function BlogIndex({ data, pageContext }) {
   )
 }
 
+BlogIndex.propTypes = {
+  data: PropTypes.shape({
+    allMarkdownRemark: PropTypes.shape({
+      nodes: PropTypes.arrayOf(
+        PropTypes.shape({
+          excerpt: PropTypes.string.isRequired,
+          fileds: PropTypes.shape({
+            slug: PropTypes.string.isRequired,
+          }),
+          frontmatter: PropTypes.shape({
+            date: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            description: PropTypes.string,
+            tags: PropTypes.arrayOf(PropTypes.string),
+            thumbnail: PropTypes.shape({
+              childImageSharp: PropTypes.shape({
+                fluid: PropTypes.object,
+              }),
+            }),
+          }),
+        })
+      ),
+    }),
+  }),
+  pageContext: PropTypes.shape({
+    currentPage: PropTypes.number,
+    numPages: PropTypes.number,
+  }),
+}
+
 export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!) {
     allMarkdownRemark(
@@ -187,8 +217,3 @@ export const pageQuery = graphql`
     }
   }
 `
-
-BlogIndex.propTypes = {
-  data: PropTypes.object.isRequired,
-  pageContext: PropTypes.object.isRequired,
-}

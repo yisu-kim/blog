@@ -30,13 +30,13 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Tag = ({ pageContext, data, location }) => {
+export default function Tag({ data, pageContext }) {
   const classes = useStyles()
-  const { tag, currentPage, numPages } = pageContext
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
     allMarkdownRemark: { edges, totalCount },
   } = data
+  const { tag, currentPage, numPages } = pageContext
 
   const tagHeader = `${totalCount} post${
     totalCount === 1 ? "" : "s"
@@ -65,7 +65,7 @@ const Tag = ({ pageContext, data, location }) => {
   }
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout title={siteTitle}>
       <SEO title={tag} />
       <article
         className={classes.container}
@@ -110,9 +110,6 @@ const Tag = ({ pageContext, data, location }) => {
 }
 
 Tag.propTypes = {
-  pageContext: PropTypes.shape({
-    tag: PropTypes.string.isRequired,
-  }),
   data: PropTypes.shape({
     allMarkdownRemark: PropTypes.shape({
       totalCount: PropTypes.number.isRequired,
@@ -120,6 +117,7 @@ Tag.propTypes = {
         PropTypes.shape({
           node: PropTypes.shape({
             frontmatter: PropTypes.shape({
+              date: PropTypes.string.isRequired,
               title: PropTypes.string.isRequired,
             }),
             fields: PropTypes.shape({
@@ -130,9 +128,12 @@ Tag.propTypes = {
       ),
     }),
   }),
+  pageContext: PropTypes.shape({
+    tag: PropTypes.string.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    numPages: PropTypes.number.isRequired,
+  }),
 }
-
-export default Tag
 
 export const pageQuery = graphql`
   query($tag: String, $skip: Int!, $limit: Int!) {

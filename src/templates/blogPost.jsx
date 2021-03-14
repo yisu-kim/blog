@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => {
   }
 })
 
-export default function BlogPostTemplate({ data, location }) {
+export default function BlogPostTemplate({ data }) {
   const classes = useStyles()
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
@@ -66,7 +66,7 @@ export default function BlogPostTemplate({ data, location }) {
   }
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout title={siteTitle}>
       <SEO title={title} description={description || excerpt} />
       <article
         className={classes.container}
@@ -112,6 +112,42 @@ export default function BlogPostTemplate({ data, location }) {
   )
 }
 
+BlogPostTemplate.propTypes = {
+  data: PropTypes.shape({
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }),
+    }),
+    markdownRemark: PropTypes.shape({
+      excerpt: PropTypes.string.isRequired,
+      html: PropTypes.string.isRequired,
+      frontmatter: PropTypes.shape({
+        date: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        tags: PropTypes.arrayOf(PropTypes.string),
+      }),
+    }),
+    previous: PropTypes.shape({
+      fields: PropTypes.shape({
+        slug: PropTypes.string.isRequired,
+      }),
+      frontmatter: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }),
+    }),
+    next: PropTypes.shape({
+      fields: PropTypes.shape({
+        slug: PropTypes.string.isRequired,
+      }),
+      frontmatter: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }),
+    }),
+  }),
+}
+
 export const pageQuery = graphql`
   query BlogPostBySlug(
     $id: String!
@@ -152,8 +188,3 @@ export const pageQuery = graphql`
     }
   }
 `
-
-BlogPostTemplate.propTypes = {
-  data: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-}

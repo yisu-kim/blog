@@ -1,5 +1,6 @@
-import { makeStyles } from "@material-ui/core"
 import React from "react"
+import PropTypes from "prop-types"
+import { makeStyles } from "@material-ui/core"
 import muiTheme from "../../mui-theme"
 
 import "./markdown.css"
@@ -53,4 +54,9 @@ export default function Markdown({ className, children }) {
       {children}
     </div>
   )
+}
+
+Markdown.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.element.isRequired,
 }

@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Tags = ({ data, location }) => {
+export default function Tags({ data }) {
   const classes = useStyles()
   const {
     site: { siteMetadata: { title: siteTitle } = `Title` },
@@ -37,7 +37,7 @@ const Tags = ({ data, location }) => {
   } = data
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout title={siteTitle}>
       <SEO title="All tags" />
       <article
         className={classes.container}
@@ -96,8 +96,6 @@ Tags.propTypes = {
     }),
   }),
 }
-
-export default Tags
 
 export const pageQuery = graphql`
   query {

@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const NotFoundPage = ({ data, location }) => {
+export default function NotFoundPage({ data }) {
   const classes = useStyles()
   const {
     site: {
@@ -29,7 +30,7 @@ const NotFoundPage = ({ data, location }) => {
   } = data
 
   return (
-    <Layout location={location} title={title}>
+    <Layout title={title}>
       <SEO title="404: Not Found" />
       <Container className={classes.container}>
         <Typography variant="h1" color="primary">
@@ -57,7 +58,15 @@ const NotFoundPage = ({ data, location }) => {
   )
 }
 
-export default NotFoundPage
+NotFoundPage.propTypes = {
+  data: PropTypes.shape({
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }),
+    }),
+  }),
+}
 
 export const pageQuery = graphql`
   query {
