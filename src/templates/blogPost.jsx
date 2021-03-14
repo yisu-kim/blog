@@ -122,10 +122,8 @@ export default function BlogPostTemplate({ data, location }) {
                   <Chip
                     component={Link}
                     to={`/tags/${kebabCase(tag)}/`}
-                    variant="outlined"
                     size="small"
                     label={`#${tag}`}
-                    color="secondary"
                     clickable
                   />
                 </ListItem>

@@ -115,10 +115,8 @@ export default function BlogIndex({ data, pageContext }) {
                       <Chip
                         component={Link}
                         to={`/tags/${kebabCase(tag)}/`}
-                        variant="outlined"
                         size="small"
                         label={`#${tag}`}
-                        color="secondary"
                         clickable
                       />
                     </ListItem>
