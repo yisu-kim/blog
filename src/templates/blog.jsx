@@ -47,9 +47,6 @@ const useStyles = makeStyles(theme => {
       padding: 0,
       width: "auto",
     },
-    tagName: {
-      backgroundColor: theme.palette.secondary.light,
-    },
   }
 })
 
@@ -116,12 +113,13 @@ export default function BlogIndex({ data, pageContext }) {
                   tags.map(tag => (
                     <ListItem key={kebabCase(tag)} className={classes.tag}>
                       <Chip
-                        className={classes.tagName}
                         component={Link}
                         to={`/tags/${kebabCase(tag)}/`}
-                        label={`#${tag}`}
-                        clickable
+                        variant="outlined"
                         size="small"
+                        label={`#${tag}`}
+                        color="secondary"
+                        clickable
                       />
                     </ListItem>
                   ))}
