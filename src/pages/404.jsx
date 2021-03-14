@@ -35,7 +35,7 @@ const NotFoundPage = ({ data, location }) => {
         <Typography variant="h1" color="primary">
           404
         </Typography>
-        <Typography variant="h3" color="primary">
+        <Typography variant="h3" component="h2" color="primary">
           Page Not Found
         </Typography>
         <Typography>
